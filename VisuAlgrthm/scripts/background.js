@@ -30,8 +30,7 @@ class Particle {
         this.directionY = directionY;
         this.size = size;
         this.colour = colour;
-        this.speedX = this.directionX;
-        this.speedY = this.directionY;
+        this.speed = 1-Math.sqrt(1-(canvas.width*canvas.height/(2048*1042)));
     }
     // draw individual particles
     draw() {
@@ -89,8 +88,8 @@ class Particle {
             this.directionY = -dy;
         }
         // move particle
-        this.x += this.directionX;
-        this.y += this.directionY;
+        this.x += this.directionX * this.speed;
+        this.y += this.directionY * this.speed;
         
         this.draw();
     }
@@ -142,6 +141,7 @@ function init(){
         //     ${(Math.random() * 256)})`;
         particles.push(new Particle(x, y, directionX, directionY, size, colour));
     }
+
 }
 
 // create animation loop
