@@ -3,14 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie-edge">
     <title>VisuAlgrthm</title>
-    <link rel="stylesheet" href="main.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="main.js"></script>
+    <link rel="stylesheet" href="styles/home.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js" type="text/javascript" charset="UTF-8"></script>
+    <script src ="scripts/home.js"></script>
+    <script src="scripts/background.js" defer></script>
 </head>
+
 <body>
-    <p>
-    </p>
+    <header>
+        <div class="container" >
+            <nav>
+                <table>
+                    <tr>
+                        <td><a href="default.asp">Home</a></td>
+                        <td><a href="news.asp">News</a></td>
+                        <td><a href="contact.asp">Contact</a></td>
+                        <td><a href="about.asp">About</a></td>
+                    </tr>
+                </table>
+            </nav>
+        </div>
+        <h1><span>Visu</span>Algrthm</h1>
+    </header>
+    <canvas id="canvas1"></canvas style="z-index: 2;">
     
 </body>
 </html>

@@ -1,0 +1,89 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -moz-user-select:none;
+    -webkit-user-select:none;
+    -webkit-touch-callout:none;
+    -ms-user-select:none;
+    user-select:none;
+}
+:root {
+    --title_top: 23%;
+  }
+#canvas1 {
+    position: absolute;
+    top: 0px;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(#2c192c, #000000);
+    z-index: -1;
+
+}
+header{
+    height: 100%;
+    width: 100%;
+}
+header .container{
+    width: 100%;
+    background-color: rgba(10, 10, 10, 0.8);
+    position: absolute;
+    text-align: center;
+    padding: 30px 0;
+}
+nav table{
+    width: auto;
+    margin-left:10%;
+}
+nav a{
+    text-decoration: none;
+    color: rgb(184, 182, 182);
+    font-size: 1.5rem;
+    text-shadow: inset 10px 10px black;
+    /*font-family: 'Agency FB';*/
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    letter-spacing: 0.05rem;
+}
+nav a:hover {
+    text-shadow: 0px 0px 5px purple;
+    color: rgb(129, 86, 129)
+}
+nav td {
+    padding: 0 20px;
+}
+
+header h1 {
+    font-family: 'Agency FB';
+    color: white;
+    letter-spacing: 0.5rem;
+    position: absolute;
+    top: var(--title_top);
+    left: 50%;
+    transform: translate(-50%, 0);
+    font-size: 6rem;
+    text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.85);
+    animation-name: drawText;
+    animation-timing-function: ease;
+    animation-duration: 1.5s;
+    animation-delay: 0.3s;
+    animation-iteration-count: 1;
+    animation-fill-mode: both;
+  }
+  header h1 span{
+      color: purple;
+  }
+  @keyframes drawText {
+    from{opacity: 0; top: calc(var(--title_top) + 3%);}
+    to{opacity: 1; top: var(--title_top);}
+  }
+
+
+
+
+
+
+
+
+
