@@ -11,13 +11,10 @@
 </head>
 
 <body>
-<canvas id="canvas1"</canvas style="z-index: 2;">
-    <script src="scripts/background.js"></script>
-
     <header>
-        <div class="container" style="z-index: 1; color: azure" >
+        <div class="container" >
             <nav>
-                <div class="navbar">
+                <div class="navbar" style="z-index:3; color:red; position: relative;">
                     <ul>
                         <li><a href="default.asp">Home</a></li>
                         <li><a href="news.asp">News</a></li>
@@ -27,8 +24,10 @@
                 </div>
             </nav>
         </div>
-
     </header>
-    
+    <canvas id="canvas1"></canvas style="z-index: 2;">
+    </script>
+
+    <script src="scripts/background.js"></script>
 </body>
 </html>
