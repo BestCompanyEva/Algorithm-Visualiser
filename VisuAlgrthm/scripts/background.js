@@ -13,7 +13,7 @@ const particleModifier = 70;
 let mouse = {
 	x: null,
 	y: null,
-  radius: ((canvas.height/120) * (canvas.width/120))
+  radius: ((canvas.height/115) * (canvas.width/115))
 }
 window.addEventListener('mousemove', 
 	function(event){
@@ -163,7 +163,7 @@ $(window).resize(
 	function(){
 		canvas.width = innerWidth;
 		canvas.height = innerHeight;
-        mouse.radius = ((canvas.height / 120) * (canvas.width / 120));
+        mouse.radius = ((canvas.height / 115) * (canvas.width / 115));
 		init();
 	}
 )
