@@ -5,7 +5,7 @@ ctx.canvas.height = window.innerHeight;
 
 let particles;
 
-const lineLengthModifier = 13000;
+const lineLengthModifier = 14000;
 // change number of Particles, lower is more
 const particleModifier = 70;
 
@@ -15,12 +15,25 @@ let mouse = {
 	y: null,
   radius: ((canvas.height/115) * (canvas.width/115))
 }
-window.addEventListener('mousemove', 
-	function(event){
-		mouse.x = event.x;
-		mouse.y = event.y;
-});
-
+// while mouse is held down
+var mouseDown = false;
+window.addEventListener('mousedown', function(event) { 
+    mouseDown = true
+    mouse.x = event.x;
+    mouse.y = event.y;
+ })
+window.addEventListener('mouseup', function() { 
+    mouseDown = false; 
+    mouse.x = undefined; 
+    mouse.y = undefined;
+})
+window.addEventListener('mousemove', function(event) { 
+    if (!mouseDown) {
+    return;
+  }
+  mouse.x = event.x;
+  mouse.y = event.y;
+})
 // create Particle
 class Particle {
     constructor(x, y, directionX, directionY, size, colour) {
@@ -132,9 +145,9 @@ function init(){
         let directionY = (Math.random() * 5) - 2.5;
         
         let colour = `rgb(
-            ${128*(Math.random()*0.5 + 0.75)},
+            ${(Math.random() * (220 - 102) + 102)}, 
             0,
-            ${128*(Math.random()*0.5 + 0.75)})`;
+            ${(Math.random() * (255 - 153) + 153 )})`;
         // let colour = `rgb(
         //     ${(Math.random() * 256)},
         //     ${(Math.random() * 256)},
