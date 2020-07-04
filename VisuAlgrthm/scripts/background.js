@@ -15,6 +15,11 @@ let mouse = {
 	y: null,
   radius: ((canvas.height/115) * (canvas.width/115))
 }
+// window.addEventListener('mousemove', 
+// function(event) {
+//     mouse.x = event.x;
+//     mouse.y = event.y;
+// }
 // while mouse is held down
 var mouseDown = false;
 window.addEventListener('mousedown', function(event) { 
