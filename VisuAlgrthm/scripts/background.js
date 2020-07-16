@@ -131,9 +131,9 @@ function init(){
         let directionY = (Math.random() * 5) - 2.5;
         
         let colour = `rgb(
-            ${128*(Math.random()*0.5 + 0.75)},
+            ${(Math.random() * (220 - 102) + 102)},
             0,
-            ${128*(Math.random()*0.5 + 0.75)})`;
+            ${(Math.random() * (255 - 153) + 153 )})`;
         // let colour = `rgb(
         //     ${(Math.random() * 256)},
         //     ${(Math.random() * 256)},
