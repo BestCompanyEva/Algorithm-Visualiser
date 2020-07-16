@@ -18,7 +18,7 @@ let mouse = {
 window.addEventListener('mousemove', 
 	function(event){
 		mouse.x = event.x;
-		mouse.y = event.y;
+        mouse.y = event.y + window.scrollY;
 });
 
 // create Particle
@@ -30,14 +30,14 @@ class Particle {
         this.directionY = directionY;
         this.size = size;
         this.colour = colour;
-        this.speed = 1-Math.sqrt(1-(canvas.width*canvas.height/(2048*1042)));
+        this.speed = numOfParticles / 300;
     }
     // draw individual particles
     draw() {
         ctx.beginPath();
-        ctx.arc(this.x,this.y,this.size,0,Math.PI * 2, false);
+        ctx.arc(parseInt(this.x),parseInt(this.y),this.size,0,Math.PI * 2, false);
 
-        ctx.fillStyle = this.colour
+        ctx.fillStyle = this.colour;
 	    ctx.fill();
     }
 
@@ -120,8 +120,7 @@ function connect() {
 // create particle array 
 function init(){
     particles = [];
-    let numOfParticles = (canvas.height * canvas.width) / (particleModifier * 100);
-    console.log(numOfParticles);
+    numOfParticles = (canvas.height * canvas.width) / (particleModifier * 100);
     for (let i = 0; i < numOfParticles; i++){
         let size = (Math.random() * 5) + 1;
         
@@ -132,9 +131,9 @@ function init(){
         let directionY = (Math.random() * 5) - 2.5;
         
         let colour = `rgb(
-            ${128*(Math.random()*0.5 + 0.75)},
+            ${(Math.random() * (220 - 102) + 102)},
             0,
-            ${128*(Math.random()*0.5 + 0.75)})`;
+            ${(Math.random() * (255 - 153) + 153 )})`;
         // let colour = `rgb(
         //     ${(Math.random() * 256)},
         //     ${(Math.random() * 256)},
@@ -144,14 +143,14 @@ function init(){
 
 }
 
+
 // create animation loop
 function animate(){
 	requestAnimationFrame(animate);
 	ctx.clearRect(0, 0, innerWidth, innerHeight);
-	
 	for (let i = 0; i < particles.length; i++){
 		particles[i].update();
-	}
+    }
     connect();
 }
 init();

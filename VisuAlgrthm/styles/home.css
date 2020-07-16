@@ -7,12 +7,17 @@
     -webkit-touch-callout:none;
     -ms-user-select:none;
     user-select:none;
+    
 }
+*::-webkit-scrollbar {
+    display: none;
+  }
+
 :root {
     --title_top: 23%;
   }
 #canvas1 {
-    position: absolute;
+    position: relative;
     top: 0px;
     left: 0;
     width: 100%;
@@ -72,14 +77,69 @@ header h1 {
     animation-fill-mode: both;
   }
   header h1 span{
-      color: purple;
+    color: purple;
   }
   @keyframes drawText {
     from{opacity: 0; top: calc(var(--title_top) + 3%);}
     to{opacity: 1; top: var(--title_top);}
   }
+  .article{
+    width: 1050px;
+    height: auto;
+    left: 50%;
+    margin: auto;
+    margin-top: 50px;
+    text-align: center;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-top: 1px solid purple;;
+  }
 
+.algo{
+    display: flex;
+    justify-content: space-around;
+}
+.algo > div{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+}
 
+.algo-container{
+    position: relative;
+    width: 300px;
+    border-radius: 1.5rem;
+    overflow: hidden;
+    box-shadow: 0 0 15px -5px slategrey;
+    user-select: all;
+}
+
+.algo-image-container{
+    position: absolute;
+    overflow: hidden;
+    width: 300px;
+    z-index: -1;
+    height: 100%;
+    width: 100%;
+    transform: scale(1);
+
+}
+.algo-image-container img {
+    position: relative;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-60%);
+}
+.algo-container-content{
+    margin: 0px;
+    margin-top: 300px;
+    background-color: white;
+    background-clip: border-box;
+    padding: 25px;
+    width: 100%;
+}
 
 
 
