@@ -7,7 +7,7 @@ let particles;
 
 const lineLengthModifier = 13000;
 // change number of Particles, lower is more
-const particleModifier = 70;
+const particleModifier = 100;
 
 // define mouse and get mouse position
 let mouse = {
@@ -95,10 +95,8 @@ class Particle {
         this.draw();
     }
 }
-const radius = 100;
 // check if particles are close enough to draw line between them
 function connect() {
-    //let opacityValue = 1;
     var date1 = window.performance.now()
     let particlesX = [...particles];
     particlesX.sort((a, b) => (a.x > b.x) ? 1 : -1);
@@ -115,12 +113,13 @@ function connect() {
         };
         particlesInRange = particlesInRange.filter(x => Math.abs(x.y - particlesX[i].y) < radius);
         for (p of particlesInRange){
-            let opacityValue = 0.5;
+            let dist = Math.sqrt(Math.pow(particlesX[i].x - p.x, 2) + Math.pow(particlesX[i].y - p.y, 2));
+            let opacityValue = 1-(dist/radius);
             ctx.strokeStyle='rgba(235,181,255,' + opacityValue +')';
             ctx.beginPath();
             ctx.lineWidth = 0.5;
-            ctx.moveTo(particlesX[i].x, particlesX[i].y);
-            ctx.lineTo(p.x, p.y);
+            ctx.moveTo(Math.floor(particlesX[i].x), Math.floor(particlesX[i].y));
+            ctx.lineTo(Math.floor(p.x), Math.floor(p.y));
             ctx.stroke();
         }
         
@@ -131,10 +130,15 @@ function connect() {
 
 // create particle array 
 function init(){
+    radius = Math.sqrt(canvas.height*canvas.height)/6;
     particles = [];
-    numOfParticles = (canvas.height * canvas.width) / (particleModifier * 100);
+    //numOfParticles = (canvas.height * canvas.width) / (particleModifier * 100);
+    numOfParticles = 150;
+    // var sizeMult = Math.sqrt(canvas.height * canvas.width) / (1000)
+    var sizeMult = 1 + canvas.height * canvas.width * 0.4 / 500000
     for (let i = 0; i < numOfParticles; i++){
         let size = (Math.random() * 5) + 1;
+        size *= sizeMult;
         
         let x = (Math.random() * ((innerWidth - size * 2) - (size * 2)) + size * 2);
         let y = (Math.random() * ((innerHeight - size * 2) - (size * 2)) + size * 2);
@@ -158,12 +162,13 @@ function init(){
 
 // create animation loop
 function animate(){
-	requestAnimationFrame(animate);
+    
 	ctx.clearRect(0, 0, innerWidth, innerHeight);
 	for (let i = 0; i < particles.length; i++){
 		particles[i].update();
     }
     connect();
+    setTimeout(animate,15);
 }
 init();
 animate();
