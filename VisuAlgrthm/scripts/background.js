@@ -94,27 +94,50 @@ class Particle {
         this.draw();
     }
 }
-
+const radius = 200;
 // check if particles are close enough to draw line between them
 function connect() {
-    let opacityValue = 1;
-    for (let a = 0; a < particles.length; a++) {
-        for (let b = a; b < particles.length; b++){
-            let distance = ((particles[a].x - particles[b].x) * (particles[a].x - particles[b].x))
-            +   ((particles[a].y - particles[b].y) * (particles[a].y - particles[b].y));
-            if  (distance < (canvas.width/7) * (canvas.height/7))
-            {   
-                opacityValue = 1-(distance/ lineLengthModifier);
-                ctx.strokeStyle='rgba(235,181,255,' + opacityValue +')';
-                ctx.beginPath();
-                ctx.lineWidth = 0.5;
-                ctx.moveTo(particles[a].x, particles[a].y);
-                ctx.lineTo(particles[b].x, particles[b].y);
-                ctx.stroke();
+    //let opacityValue = 1;
+    let particlesX = [...particles];
+    particlesX.sort((a, b) => (a.x < b.x) ? 1 : -1);
 
-            }    
+    for (let i = 0; i < particles.length; i++){
+        let particlesInRange = []
+        for (let j = i + 1; j < particles.length, j++){
+            if (particlesX[j].x - particlesX[i].x < radius){
+                particlesInRange.push(particlesX[j]);
+            } else {
+                return;
+            };
+        };
+        particlesInRange = particlesInRange.filter(x => Math.abs(x.y - particlesX[i].y) < radius);
+        for (p of particlesInRange){
+            opacityValue = 0.5;
+            ctx.strokeStyle='rgba(235,181,255,' + opacityValue +')';
+            ctx.beginPath();
+            ctx.lineWidth = 0.5;
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(p.x, p.y);
+            ctx.stroke();
+        }
     }
-    }
+    // for (let a = 0; a < particles.length; a++) {
+    //     for (let b = a; b < particles.length; b++){
+    //         let distance = ((particles[a].x - particles[b].x) * (particles[a].x - particles[b].x))
+    //         +   ((particles[a].y - particles[b].y) * (particles[a].y - particles[b].y));
+    //         if  (distance < (canvas.width/7) * (canvas.height/7))
+    //         {   
+    //             opacityValue = 1-(distance/ lineLengthModifier);
+    //             ctx.strokeStyle='rgba(235,181,255,' + opacityValue +')';
+    //             ctx.beginPath();
+    //             ctx.lineWidth = 0.5;
+    //             ctx.moveTo(particles[a].x, particles[a].y);
+    //             ctx.lineTo(particles[b].x, particles[b].y);
+    //             ctx.stroke();
+
+    //         }    
+    // }
+    // }
 }
 
 // create particle array 
