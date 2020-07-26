@@ -135,7 +135,7 @@ function init(){
     //numOfParticles = (canvas.height * canvas.width) / (particleModifier * 100);
     numOfParticles = 150;
     // var sizeMult = Math.sqrt(canvas.height * canvas.width) / (1000)
-    var sizeMult = 1 + canvas.height * canvas.width * 0.4 / 500000
+    var sizeMult = 1 + canvas.height * canvas.width * 0.4 / 800000
     for (let i = 0; i < numOfParticles; i++){
         let size = (Math.random() * 5) + 1;
         size *= sizeMult;
@@ -168,7 +168,8 @@ function animate(){
 		particles[i].update();
     }
     connect();
-    setTimeout(animate,15);
+    setTimeout(animate,12.5);
+    //requestAnimationFrame(animate)
 }
 init();
 animate();
