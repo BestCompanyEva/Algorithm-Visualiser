@@ -23,7 +23,8 @@ window.addEventListener('mousemove',
 
 // create Particle
 class Particle {
-    constructor(x, y, directionX, directionY, size, colour) {
+    constructor(id, x, y, directionX, directionY, size, colour) {
+        this.id = id;
         this.x = x;
         this.y = y;
         this.directionX = directionX;
@@ -94,50 +95,38 @@ class Particle {
         this.draw();
     }
 }
-const radius = 200;
+const radius = 100;
 // check if particles are close enough to draw line between them
 function connect() {
     //let opacityValue = 1;
+    var date1 = window.performance.now()
     let particlesX = [...particles];
-    particlesX.sort((a, b) => (a.x < b.x) ? 1 : -1);
-
+    particlesX.sort((a, b) => (a.x > b.x) ? 1 : -1);
     for (let i = 0; i < particles.length; i++){
         let particlesInRange = []
-        for (let j = i + 1; j < particles.length, j++){
-            if (particlesX[j].x - particlesX[i].x < radius){
-                particlesInRange.push(particlesX[j]);
+        let p = particlesX[i]
+        for (let j = i + 1; j < particles.length; j++){
+            let p2 = particlesX[j];
+            if (p2.x - p.x < radius){
+                particlesInRange.push(p2);
             } else {
-                return;
+                break;
             };
         };
         particlesInRange = particlesInRange.filter(x => Math.abs(x.y - particlesX[i].y) < radius);
         for (p of particlesInRange){
-            opacityValue = 0.5;
+            let opacityValue = 0.5;
             ctx.strokeStyle='rgba(235,181,255,' + opacityValue +')';
             ctx.beginPath();
             ctx.lineWidth = 0.5;
-            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.moveTo(particlesX[i].x, particlesX[i].y);
             ctx.lineTo(p.x, p.y);
             ctx.stroke();
         }
+        
     }
-    // for (let a = 0; a < particles.length; a++) {
-    //     for (let b = a; b < particles.length; b++){
-    //         let distance = ((particles[a].x - particles[b].x) * (particles[a].x - particles[b].x))
-    //         +   ((particles[a].y - particles[b].y) * (particles[a].y - particles[b].y));
-    //         if  (distance < (canvas.width/7) * (canvas.height/7))
-    //         {   
-    //             opacityValue = 1-(distance/ lineLengthModifier);
-    //             ctx.strokeStyle='rgba(235,181,255,' + opacityValue +')';
-    //             ctx.beginPath();
-    //             ctx.lineWidth = 0.5;
-    //             ctx.moveTo(particles[a].x, particles[a].y);
-    //             ctx.lineTo(particles[b].x, particles[b].y);
-    //             ctx.stroke();
 
-    //         }    
-    // }
-    // }
+    //console.log(date1- window.performance.now());
 }
 
 // create particle array 
@@ -161,7 +150,7 @@ function init(){
         //     ${(Math.random() * 256)},
         //     ${(Math.random() * 256)},
         //     ${(Math.random() * 256)})`;
-        particles.push(new Particle(x, y, directionX, directionY, size, colour));
+        particles.push(new Particle(i, x, y, directionX, directionY, size, colour));
     }
 
 }
