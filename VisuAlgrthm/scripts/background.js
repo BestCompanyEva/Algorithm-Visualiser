@@ -97,21 +97,26 @@ class Particle {
 }
 // check if particles are close enough to draw line between them
 function connect() {
-    var date1 = window.performance.now()
-    let particlesX = [...particles];
+    // Sort paricle array according to x position
     particlesX.sort((a, b) => (a.x > b.x) ? 1 : -1);
+
     for (let i = 0; i < particles.length; i++){
         let particlesInRange = []
         let p = particlesX[i]
+        // Append all subsequent dots to a list that are within the radius on the x axis
         for (let j = i + 1; j < particles.length; j++){
             let p2 = particlesX[j];
             if (p2.x - p.x < radius){
                 particlesInRange.push(p2);
             } else {
+                // Break loop. Because the loop is sorted, all further array elements are not within the range anymore
                 break;
             };
         };
+        // Remove all elements that are not within the radius on the y axis
         particlesInRange = particlesInRange.filter(x => Math.abs(x.y - particlesX[i].y) < radius);
+
+        // Draw connections to all remaining dots
         for (p of particlesInRange){
             let dist = Math.sqrt(Math.pow(particlesX[i].x - p.x, 2) + Math.pow(particlesX[i].y - p.y, 2));
             let opacityValue = 1-(dist/radius);
@@ -125,7 +130,6 @@ function connect() {
         
     }
 
-    //console.log(date1- window.performance.now());
 }
 
 // create particle array 
@@ -156,6 +160,8 @@ function init(){
         //     ${(Math.random() * 256)})`;
         particles.push(new Particle(i, x, y, directionX, directionY, size, colour));
     }
+    //Create copy of particle array
+    particlesX = [...particles];
 
 }
 
