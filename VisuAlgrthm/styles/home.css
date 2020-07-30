@@ -60,6 +60,7 @@ nav td {
 }
 
 header h1 {
+    text-align: center;
     font-family: 'Agency FB';
     color: white;
     letter-spacing: 0.5rem;
@@ -76,9 +77,18 @@ header h1 {
     animation-iteration-count: 1;
     animation-fill-mode: both;
   }
-  header h1 span{
+
+header h1 p{
+    font-size: 0.5em;
+}
+
+.orange{
+    color: #FE842B;
+}
+
+.purple{
     color: purple;
-  }
+}
   @keyframes drawText {
     from{opacity: 0; top: calc(var(--title_top) + 3%);}
     to{opacity: 1; top: var(--title_top);}
