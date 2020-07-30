@@ -6,20 +6,59 @@ ctx.canvas.height = window.innerHeight;
 let particles;
 
 const lineLengthModifier = 13000;
+const mouseTrail = [];
 // change number of Particles, lower is more
 const particleModifier = 100;
-
 // define mouse and get mouse position
 let mouse = {
 	x: null,
 	y: null,
-  radius: ((canvas.height/115) * (canvas.width/115))
+  radius: ((canvas.height/180) * (canvas.width/180))
 }
+
 window.addEventListener('mousemove', 
 	function(event){
 		mouse.x = event.x;
         mouse.y = event.y + window.scrollY;
-});
+        var Dot = new TrailDot(mouse.x, mouse.y);
+        Dot.add();
+        setTimeout(Dot.delete, Dot.trailDuration);
+        // check mouse position/particle position - collision detection
+        for (const p of particles) {
+            let dx = mouse.x - p.x;
+            let dy = mouse.y - p.y;
+            let distance = Math.sqrt(dx * dx + dy * dy);
+            
+            if (distance < mouse.radius + p.size){
+                if(mouse.x < this.x){
+                    p.x+= 1.5;
+                } else if (mouse.x > p.x){
+                    p.x-= 1.5;
+                };
+
+                if (mouse.y < p.y){
+                    p.y+= 1.5;
+                } else if (mouse.y > p.y){
+                    p.y-= 1.5;
+                };
+
+                if (Math.abs(dx) > 2.5 || Math.abs(dy) > 2.5){
+                    if (dy == 0){
+                        dy = 0.001
+                    };
+                    if (Math.abs(dx) > Math.abs(dy)){
+                        var divident = Math.abs(dx) / 2.5;
+                    } else {
+                        var divident = Math.abs(dy) / 2.5;
+                    };
+                    dx /= divident;
+                    dy /= divident;
+                }
+                p.directionX = -dx;
+                p.directionY = -dy;
+            }
+        }
+    });
 
 // create Particle
 class Particle {
@@ -55,44 +94,27 @@ class Particle {
         } else if(this.y - this.size < 0){
 		    this.y += canvas.height;
 	    };
-        // check mouse position/particle position - collision detection
-        let dx = mouse.x - this.x;
-        let dy = mouse.y - this.y;
-        let distance = Math.sqrt(dx * dx + dy * dy);
-        
-        if (distance < mouse.radius + this.size){
-            if(mouse.x < this.x){
-                this.x+= 1.5;
-            } else if (mouse.x > this.x){
-                this.x-= 1.5;
-            };
 
-            if (mouse.y < this.y){
-                this.y+= 1.5;
-            } else if (mouse.y > this.y){
-                this.y-= 1.5;
-            };
-
-            if (Math.abs(dx) > 2.5 || Math.abs(dy) > 2.5){
-                if (dy == 0){
-                    dy = 0.001
-                };
-                if (Math.abs(dx) > Math.abs(dy)){
-                    var divident = Math.abs(dx) / 2.5;
-                } else {
-                    var divident = Math.abs(dy) / 2.5;
-                };
-                dx /= divident;
-                dy /= divident;
-            }
-            this.directionX = -dx;
-            this.directionY = -dy;
-        }
         // move particle
         this.x += this.directionX * this.speed;
         this.y += this.directionY * this.speed;
         
         this.draw();
+    }
+}
+
+class TrailDot {
+    constructor(x, y){
+        this.trailDuration = 100;
+        this.mouseTrailOffset = [7,7];
+        this.x = x + this.mouseTrailOffset[0];
+        this.y = y + this.mouseTrailOffset[1];
+    }
+    add(){
+        mouseTrail.push(this);
+    }
+    delete(){
+        mouseTrail.splice(0, 1);
     }
 }
 // check if particles are close enough to draw line between them
@@ -121,12 +143,19 @@ function connect() {
             let dist = Math.sqrt(Math.pow(particlesX[i].x - p.x, 2) + Math.pow(particlesX[i].y - p.y, 2));
             let opacityValue = 1-(dist/radius);
             ctx.strokeStyle='rgba(235,181,255,' + opacityValue +')';
+            // // Create gradient
+            // var gradient = ctx.createLinearGradient(Math.floor(particlesX[i].x), Math.floor(particlesX[i].y), Math.floor(p.x), Math.floor(p.y));
+            // gradient.addColorStop("0", particlesX[i].colour.replace('rgb', 'rgba').replace(')', ',' + opacityValue + ')'));
+            // gradient.addColorStop("1.0", p.colour.replace('rgb', 'rgba').replace(')', ',' + opacityValue + ')'));
+            // // Fill with gradient
+            // ctx.strokeStyle = gradient;
             ctx.beginPath();
             ctx.lineWidth = 0.5;
             ctx.moveTo(Math.floor(particlesX[i].x), Math.floor(particlesX[i].y));
             ctx.lineTo(Math.floor(p.x), Math.floor(p.y));
             ctx.stroke();
         }
+
         
     }
 
@@ -150,14 +179,22 @@ function init(){
         let directionX = (Math.random() * 5) - 2.5;
         let directionY = (Math.random() * 5) - 2.5;
         
-        let colour = `rgb(
-            ${(Math.random() * (220 - 102) + 102)},
-            0,
-            ${(Math.random() * (255 - 153) + 153 )})`;
-        // let colour = `rgb(
-        //     ${(Math.random() * 256)},
-        //     ${(Math.random() * 256)},
-        //     ${(Math.random() * 256)})`;
+        if(Math.random()>0.2){
+
+            var colour = `rgb(
+                ${(Math.random() * (220 - 102) + 102)},
+                0,
+                ${(Math.random() * (255 - 153) + 153 )})`;
+            // let colour = `rgb(
+            //     ${(Math.random() * 256)},
+            //     ${(Math.random() * 256)},
+            //     ${(Math.random() * 256)})`;
+        } else {
+            var colour = `rgb(
+                ${(Math.random() * (255 - 240) + 240)},
+                ${(Math.random() * (150 - 120) + 120)},
+                ${(Math.random() * (60 - 20) + 20 )})`;
+        }
         particles.push(new Particle(i, x, y, directionX, directionY, size, colour));
     }
     //Create copy of particle array
@@ -165,6 +202,27 @@ function init(){
 
 }
 
+function trail(){
+    if (mouseTrail.length > 0){
+        for (let i = 0; i < mouseTrail.length; i++) {
+            const point = mouseTrail[i];
+
+            if (i == mouseTrail.length - 1){
+                var connection = (mouse.x == undefined) ? point : new TrailDot(mouse.x, mouse.y);
+            } else {
+                var connection = mouseTrail[i+1];
+            };
+            let opacityValue = 0.2 + 0.8 * (i / (mouseTrail.length-1));
+            ctx.strokeStyle='rgba(255,255,255,' + opacityValue +')';
+            ctx.beginPath();
+            ctx.lineWidth = 0.5 +  2.5 * (i / (mouseTrail.length-1));
+            ctx.moveTo(Math.floor(point.x), Math.floor(point.y));
+            ctx.lineTo(Math.floor(connection.x), Math.floor(connection.y));
+            ctx.stroke();
+            
+        }
+    }
+}
 
 // create animation loop
 function animate(){
@@ -174,6 +232,7 @@ function animate(){
 		particles[i].update();
     }
     connect();
+    trail();
     setTimeout(animate,12.5);
     //requestAnimationFrame(animate)
 }
