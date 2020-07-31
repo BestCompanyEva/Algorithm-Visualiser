@@ -1,6 +1,15 @@
 $(function() {
-
+    setAsidePosition();
+    for (const entry of $('.entry')) {
+        let p = document.createElement('p');
+        p.innerHTML = entry.innerHTML;
+        document.querySelector('aside').appendChild(p);
+        $(p).click(function(){
+            jump(p);
+        })
+    }
 });
+
 
 const targetScale = 1.15;
 var increment = calcInc(); //The more Particles, the biger the increment
@@ -63,6 +72,29 @@ function calcInc(){
     return Math.pow(numOfParticles / 120, 2);
 }
 
+
+function setAsidePosition(){
+    _top = parseFloat($('#canvas1').css('height')) + 50.0;
+    var elem = $('aside').first();
+    if(window.scrollY >= _top - 50 && elem.css('position') == 'absolute'){
+        elem.css('position','fixed');
+        elem.css('top','50px');
+    } else if (window.scrollY <= _top - 50 && elem.css('position') != 'absolute'){
+        elem.css({'position':'absolute', 'top': _top});
+    }
+}
+
+function jump(node){
+    for (const entry of $('.entry')) {
+        if (entry.innerHTML == node.innerHTML){
+            window.scrollTo(0, entry.getBoundingClientRect().top + window.scrollY);
+        }
+    }
+}
+
 $(window).resize(function(){
     increment = calcInc();
+})
+$(window).scroll(function(){
+    setAsidePosition();
 })
