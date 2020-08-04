@@ -59,3 +59,14 @@
   .invisible{
       display: none;
   }
+
+  #showValue{
+    padding: 5px;
+    border: 1px solid #ccc;
+    background: #ececec;
+    position: absolute;
+    z-index: 10;
+    opacity: 0;
+    border-radius: 5px;
+    transition: opacity .1s;
+  }
