@@ -138,29 +138,61 @@ function drawBars(){
 
 }
 
-function mouseOnBarCheck(){
+function mouseOnBarCheck(textInclusive=false){
+
+    let text = (textInclusive) ? 40 : 0;
     var rect = document.getElementById('vis-alg').getBoundingClientRect();
     for (const bar of arr) {
-        let x = bar.positionX - bar.width / 2 + rect.left;
-        let y = bar.positionY - bar.height + rect.top;
-        if (mouse.x > x && mouse.x < x + bar.width && mouse.y > y && mouse.y < y + bar.height){
-            return bar.value;
+        let x = bar.positionX - bar.width / 2 + rect.left + window.scrollX;
+        let y = bar.positionY - bar.height + rect.top + window.scrollY;
+        if (mouse.x > x && mouse.x < x + bar.width && mouse.y > y && mouse.y < y + bar.height + text){
+            return bar;
         }
     }
     return false;
 }
 
-$('#vis-alg').mousemove(function(){
-    let rect = mouseOnBarCheck();
-    if (rect){
+
+$('#vis-alg').dblclick(function(){
+    var bar = mouseOnBarCheck(true);
+    if (bar){
+        $('#valueChangerStartValue').html(bar.value);
+        $('#valueChanger').css({'top':mouse.y + 'px', 'left': mouse.x - $('#valueChanger').width() / 2 + 'px'});
+        $('#valueChanger').removeClass('invisible');
+    }
+});
+
+$('#vis-alg').mouseenter(function(){
+    $('#showValue').removeClass('invisible');
+});
+
+$('#vis-alg').mousemove(descriptionHandler);
+
+var hasDisappeared = true
+function descriptionHandler(){
+    let rect = mouseOnBarCheck().value;
+    if (rect && hasDisappeared){
         $('#showValue').html(rect);
         $('#showValue').css({'opacity':'1'});
+        $('#showValue').css('transition-delay', '0.5s');
+
     } else {
+        if (hasDisappeared){
+            hasDisappeared = false;
+            setTimeout(function(){
+                hasDisappeared = true;
+                descriptionHandler();
+            }, 100)
+        }
         $('#showValue').css('opacity','0');
+        $('#showValue').css('transition-delay', '0s');
+
     }
-})
+}
+
 $('#vis-alg').mouseleave(function(){
     $('#showValue').css('opacity','0');
+    $('#showValue').addClass('invisible');
 })
 
 document.getElementById('amountSlider').oninput = function() {
