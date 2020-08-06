@@ -131,8 +131,12 @@ header h1 span{
     z-index: -1;
     height: 100%;
     width: 100%;
-    transform: scale(1);
+    transition: transform .4s;
 
+}
+
+.algo-container:hover > .algo-image-container{
+    transform: scale(1.1);
 }
 .algo-image-container img {
     position: relative;
