@@ -15,6 +15,8 @@
 
 :root {
     --title_top: 23%;
+    --secondary_color: #FE842B;
+    scroll-behavior: smooth;
   }
 #canvas1 {
     position: relative;
@@ -24,7 +26,6 @@
     height: 100%;
     background: radial-gradient(#2c192c, #000000);
     z-index: -1;
-
 }
 header{
     height: 100%;
@@ -75,15 +76,16 @@ header h1 {
     animation-delay: 0.3s;
     animation-iteration-count: 1;
     animation-fill-mode: both;
-  }
-  header h1 span{
+}
+header h1 span{
     color: purple;
-  }
-  @keyframes drawText {
+}
+@keyframes drawText {
     from{opacity: 0; top: calc(var(--title_top) + 3%);}
     to{opacity: 1; top: var(--title_top);}
-  }
-  .article{
+}
+.article{
+    font-size: 2em;
     width: 1050px;
     height: auto;
     left: 50%;
@@ -91,12 +93,18 @@ header h1 {
     margin-top: 50px;
     text-align: center;
     padding-top: 50px;
-    padding-bottom: 50px;
+    padding-bottom: 0px;
     padding-left: 20px;
     padding-right: 20px;
-    border-top: 1px solid purple;;
+    border-top: 1px solid purple;
   }
-
+.article:last-of-type{
+    padding-bottom: 50px;
+}
+.article h1{
+    color: purple;
+    padding-bottom: 40px;
+}
 .algo{
     display: flex;
     justify-content: space-around;
@@ -144,7 +152,57 @@ header h1 {
     padding: 25px;
     width: 100%;
 }
-
+.align-left{
+    text-align: left;
+}
+.align-left .float{
+    float: right;
+    margin: 20px;
+}
+.align-right{
+    text-align: right;
+    border-top: 1px solid var(--secondary_color);
+}
+.align-right .float{
+    float: left;
+    margin: 20px;
+}
+.align-right h1 {
+    color: var(--secondary_color);
+}
+.hover-shadow:hover{
+    box-shadow: 3px 3px 10px -3px rgba(0, 0, 0, 0.85);
+}
+aside{
+    position: absolute;
+    left: 50px;
+    top: calc(100% + 50px);
+    width: 20%;
+    max-width: 200px;
+    background-color: transparent;
+    color: purple;
+    margin: 0px;
+}
+aside p{
+    padding: 20px;
+    min-width: 150px;
+    height: auto;
+    margin-bottom: 30px;
+    font-size: 1.3em;
+    border-radius: 25px;
+    border: 2px solid purple;
+}
+aside p:hover{
+    background-color: #80008022;
+}
+footer{
+    background-color: #303030;
+    color: white;
+    min-width: 10%;
+    font-size: 4em;
+    text-align: center;
+    padding: 30px;
+}
 
 
 
