@@ -1,0 +1,32 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/side.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js" type="text/javascript" charset="UTF-8"></script>
+    <script src="scripts/side.js" defer></script>
+    <title>Sorting Algorithms</title>
+</head>
+<body>
+    <div id="centerContainer">
+        <div id="amountSliderContainer" class="invisible">
+            <p id='amountSliderValue'></p>
+            <input type="range" min="5" max="100" value="30" class="slider" id="amountSlider">
+        </div>
+        <canvas id="vis-alg" height= '500px' width='900px'></canvas><br>
+        <a href="side.html?a=qs">Click here</a>
+        <input type="button" value="random" id="randomize" class="invisible">
+        <input type="button" value="sort" id="sort">
+    </div>
+    <div id="showValue" class="invisible"></div>
+    <div id="valueChanger" class="invisible">
+        <p>Change Value:</p>
+        <table>
+            <td id="valueChangerStartValue">20</td>
+            <td id="arrow">→</td>
+            <td id="valueChangerEndValue"><input type="number" name="" id="" min="1" max="99" maxlength="3" placeholder="0-99"></td>
+        </table>
+    </div>
+</body>
+</html>

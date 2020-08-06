@@ -17,7 +17,7 @@ let mouse = {
 }
 window.addEventListener('mousemove', 
 	function(event){
-		mouse.x = event.x;
+		mouse.x = event.x + window.scrollX;
         mouse.y = event.y + window.scrollY;
         var Dot = new TrailDot(mouse.x, mouse.y);
         Dot.add();
