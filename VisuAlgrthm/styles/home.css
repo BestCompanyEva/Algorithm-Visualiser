@@ -15,7 +15,14 @@
 
 :root {
     --title_top: 23%;
+    --secondary_color: #FE842B;
+    scroll-behavior: smooth;
   }
+body{
+    scrollbar-width: none;
+    overflow-x: hidden;
+    -ms-overflow-style: none;
+}
 #canvas1 {
     position: relative;
     top: 0px;
@@ -24,7 +31,6 @@
     height: 100%;
     background: radial-gradient(#2c192c, #000000);
     z-index: -1;
-
 }
 header{
     height: 100%;
@@ -35,13 +41,9 @@ header .container{
     background-color: rgba(10, 10, 10, 0.8);
     position: absolute;
     text-align: center;
-    padding: 30px 0;
+    padding-left: 10%;
 }
-nav table{
-    width: auto;
-    margin-left:10%;
-}
-nav a{
+header .container a{
     text-decoration: none;
     color: rgb(184, 182, 182);
     font-size: 1.5rem;
@@ -50,16 +52,20 @@ nav a{
     font-family: 'Roboto', sans-serif;
     font-weight: 500;
     letter-spacing: 0.05rem;
+    padding: 30px 20px;
+    text-align: center;
+    float: left;
+    transition: all 0.3s ease;
 }
-nav a:hover {
-    text-shadow: 0px 0px 5px purple;
-    color: rgb(129, 86, 129)
-}
-nav td {
-    padding: 0 20px;
+
+header .container a:hover {
+    /*box-shadow: inset 1px 1px 2px 3px black;*/
+    background-color: rgb(77, 77, 77);
+    cursor: pointer;
 }
 
 header h1 {
+    text-align: center;
     font-family: 'Agency FB';
     color: white;
     letter-spacing: 0.5rem;
@@ -72,18 +78,36 @@ header h1 {
     animation-name: drawText;
     animation-timing-function: ease;
     animation-duration: 1.5s;
-    animation-delay: 0.3s;
+    animation-delay: 0.2s;
     animation-iteration-count: 1;
     animation-fill-mode: both;
-  }
-  header h1 span{
+}
+
+header h1 p{
+    font-size: 0.5em;
+}
+
+@media screen and (max-width: 600px) {
+    header .container a:not(:first-child) {display: none;}
+    header .container a.icon {
+      float: right;
+      display: block;
+    }
+}
+
+.orange{
+    color: #FE842B;
+}
+
+.purple{
     color: purple;
-  }
-  @keyframes drawText {
+}
+@keyframes drawText {
     from{opacity: 0; top: calc(var(--title_top) + 3%);}
     to{opacity: 1; top: var(--title_top);}
-  }
-  .article{
+}
+.article{
+    font-size: 2em;
     width: 1050px;
     height: auto;
     left: 50%;
@@ -91,55 +115,133 @@ header h1 {
     margin-top: 50px;
     text-align: center;
     padding-top: 50px;
-    padding-bottom: 50px;
+    padding-bottom: 0px;
     padding-left: 20px;
     padding-right: 20px;
-    border-top: 1px solid purple;;
+    border-top: 1px solid purple;
   }
-
+.article:last-of-type{
+    padding-bottom: 50px;
+}
+.article h1{
+    color: purple;
+    padding-bottom: 40px;
+}
 .algo{
+    padding-left: 50px;
+    padding-right: 50px;
     display: flex;
     justify-content: space-around;
 }
 .algo > div{
     display:flex;
     flex-direction: column;
-    align-items: center;
 }
 
 .algo-container{
     position: relative;
-    width: 300px;
+    width: 250px;
     border-radius: 1.5rem;
     overflow: hidden;
-    box-shadow: 0 0 15px -5px slategrey;
+    border: 1.15px solid purple;
     user-select: all;
 }
 
 .algo-image-container{
     position: absolute;
     overflow: hidden;
-    width: 300px;
+    width: 250px;
     z-index: -1;
     height: 100%;
     width: 100%;
-    transform: scale(1);
-
+    transition: transform .2s;
 }
+
+.algo-container:hover > .algo-image-container{
+    transform: scale(1.1);
+}
+
 .algo-image-container img {
     position: relative;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%,-60%);
+    width: 250px;
+    height: 250px;
 }
+
 .algo-container-content{
     margin: 0px;
-    margin-top: 300px;
+    margin-top: 250px;
     background-color: white;
     background-clip: border-box;
     padding: 25px;
     width: 100%;
+    font-size: 0.75em;
 }
+
+.align-left{
+    text-align: left;
+}
+
+.align-left .float{
+    float: right;
+    margin: 20px;
+}
+
+.align-right{
+    text-align: right;
+    border-top: 1px solid var(--secondary_color);
+}
+
+.align-right .float{
+    float: left;
+    margin: 20px;
+}
+
+.align-right h1 {
+    color: var(--secondary_color);
+}
+
+.hover-shadow{
+    transition: all 0.15s ease;
+}
+
+.hover-shadow:hover{
+    box-shadow: 3px 3px 10px -3px rgba(0, 0, 0, 0.85);
+}
+
+nav{
+    position: absolute;
+    left: 50px;
+    top: calc(100% + 50px);
+    width: 20%;
+    max-width: 200px;
+    background-color: transparent;
+    color: purple;
+    margin: 0px;
+}
+
+nav p{
+    padding: 20px;
+    min-width: 150px;
+    height: auto;
+    margin-bottom: 30px;
+    font-size: 1.3em;
+    border-radius: 25px;
+    border: 2px solid purple;
+}
+
+nav p:hover{
+    background-color: #80008022;
+}
+
+footer{
+    background-color: #303030;
+    color: white;
+    min-width: 10%;
+    font-size: 4em;
+    text-align: center;
+    padding: 30px;
+}
+
 
 
 
