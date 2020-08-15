@@ -24,13 +24,14 @@ body{
     -ms-overflow-style: none;
 }
 #canvas1 {
-    position: relative;
+    position: absolute;
     top: 0px;
     left: 0;
     width: 100%;
     height: 100%;
     background: radial-gradient(#2c192c, #000000);
     z-index: -1;
+
 }
 header{
     height: 100%;
