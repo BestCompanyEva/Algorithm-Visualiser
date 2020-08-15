@@ -414,6 +414,7 @@ class QuadTree {
 //             const point = mouseTrail[i];
 
 //             if (i == mouseTrail.length - 1){
+//                 var connection = (mouse.x == undefined) ? point : new TrailDot(mouse.x, mouse.y);
 //             } else {
 //                 var connection = mouseTrail[i+1];
 //             };
