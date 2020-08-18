@@ -211,29 +211,72 @@ header h1 p{
 }
 
 nav{
-    position: absolute;
-    left: 50px;
-    top: calc(100% + 50px);
-    width: 20%;
-    max-width: 200px;
-    background-color: transparent;
-    color: purple;
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    width: 200px;
+    height: 100%;
+    background-color: purple;
+    color: white;
     margin: 0px;
+    text-align: left;
+    z-index: 10;
+    transform: translateX(-100%);
+    transition: transform .5s ease-out;
+}
+
+#navContents{
+    background-color: rgb(158, 27, 158);
+    box-shadow: inset 5px 5px 13px -10px black, inset -5px -5px 10px -10px black;
+    margin-left: 10px;
+    margin-right: 4px;
 }
 
 nav p{
-    padding: 20px;
+    padding: 10px 10px;
     min-width: 150px;
     height: auto;
-    margin-bottom: 30px;
-    font-size: 1.3em;
-    border-radius: 25px;
-    border: 2px solid purple;
+    font-size: 17px;
 }
 
 nav p:hover{
-    background-color: #80008022;
+    background-color: orange;
 }
+
+nav h1{
+    margin: 50px 0 10px 15px;
+}
+
+.navActive{
+    transform: translateX(0);
+}
+
+#navBtn{
+    position: fixed;
+    z-index: 8;
+    background-color: purple;
+    width: 50px;
+    height: 50px;
+    left: 2%;
+    top: 15%;
+    border-radius: 7px;
+    transform: 2s;
+}
+#navBtn:hover{
+    background-color: rgb(163, 51, 163);
+    box-shadow: inset 0px 0px 15px -5px rgba(0,0,0,0.5);
+}
+#navBtn div{
+    background-image: url("../images/ShowNavBar.svg");
+    height: 80%;
+    width: 80%;
+    margin: 10%;
+    background-size: contain;
+    background-position-x: center;
+    background-position-y: center;
+    background-repeat: no-repeat;
+}
+
 
 footer{
     background-color: #303030;
