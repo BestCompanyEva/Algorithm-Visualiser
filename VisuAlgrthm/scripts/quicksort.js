@@ -9,17 +9,8 @@ const offsetLeft = 50
 
 $(function(){
     arr = [];
-    getElements();
     init();
 })
-
-function getElements(){
-    var slider = $('#amountSlider');
-    slider.attr({'min':'5', 'max':'100', 'value':'20'})
-    document.getElementById('amountSliderValue').innerHTML = 20;
-    $('#amountSliderContainer').removeClass('invisible');
-    $('#randomize').removeClass('invisible');
-}
 
 class Bar{
     constructor(value){
