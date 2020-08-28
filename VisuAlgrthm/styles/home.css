@@ -14,14 +14,20 @@
   }
 
 :root {
+    --gelbwaswirmochten: #f6e898;
     --title_top: 23%;
-    --secondary_color: #FE842B;
+    --primary_color: #91e5f6ff;
+    --secondary_color: #f6e898;
+    --tertiary_color: #315272ff;
+    --quartery_color: #377dabff;
+    --quintery_color: #3ba9dcff;
     scroll-behavior: smooth;
   }
 body{
     scrollbar-width: none;
     overflow-x: hidden;
     -ms-overflow-style: none;
+    background-color: rgb(41, 41, 41);
 }
 #canvas1 {
     position: relative;
@@ -29,7 +35,7 @@ body{
     left: 0;
     width: 100%;
     height: 100%;
-    background: radial-gradient(#2c192c, #000000);
+    background: radial-gradient(var(--tertiary_color), #000000);
     z-index: -1;
 }
 header{
@@ -98,11 +104,11 @@ header h1 p{
 }
 
 .orange{
-    color: #FE842B;
+    color: var(--secondary_color);
 }
 
 .purple{
-    color: purple;
+    color: var(--primary_color);
 }
 @keyframes drawText {
     from{opacity: 0; top: calc(var(--title_top) + 3%);}
@@ -120,13 +126,13 @@ header h1 p{
     padding-bottom: 0px;
     padding-left: 20px;
     padding-right: 20px;
-    border-top: 1px solid purple;
+    border-top: 1px solid var(--primary_color);
   }
 .article:last-of-type{
     padding-bottom: 50px;
 }
 .article h1{
-    color: purple;
+    color: var(--primary_color);
     padding-bottom: 40px;
 }
 .algo{
@@ -145,7 +151,7 @@ header h1 p{
     width: 250px;
     border-radius: 1.5rem;
     overflow: hidden;
-    border: 1.15px solid purple;
+    border: 1.15px solid var(--primary_color);
     user-select: all;
 }
 
@@ -216,7 +222,7 @@ nav{
     top: 0px;
     width: 200px;
     height: 100%;
-    background-color: purple;
+    background-color: var(--primary_color);
     color: white;
     margin: 0px;
     text-align: left;
@@ -226,7 +232,7 @@ nav{
 }
 
 #navContents{
-    background-color: rgb(158, 27, 158);
+    background-color: var(--tertiary_color);
     box-shadow: inset 5px 5px 13px -10px black, inset -5px -5px 10px -10px black;
     margin-left: 10px;
     margin-right: 4px;
@@ -254,7 +260,7 @@ nav h1{
 #navBtn{
     position: fixed;
     z-index: 8;
-    background-color: purple;
+    background-color: var(--primary_color);
     width: 50px;
     height: 50px;
     left: 2%;
@@ -263,7 +269,7 @@ nav h1{
     transform: 2s;
 }
 #navBtn:hover{
-    background-color: rgb(163, 51, 163);
+    background-color: var(--quartery_color);
     box-shadow: inset 0px 0px 15px -5px rgba(0,0,0,0.5);
 }
 #navBtn div{

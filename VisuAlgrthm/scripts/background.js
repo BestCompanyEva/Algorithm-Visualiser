@@ -16,15 +16,26 @@ const mouse = { x: 0, y: 0}
 let particles = [];
 const candidates = [];
 var W, H;
-const links = [[], [], [], []];
+const links = [[], [], [], [], [], [], [], []];
 //const linkBatchAlphas = Array.from(Array(99), (_, i) => (i + 1)/100)
-const linkBatchAlphas = [0.1,0.3,0.5,0.7]
+const linkBatchAlphas = [0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8]
 const linkBatches = links.length;
 const linkPool = [];
 var execute = true;
 let quadTree;
 let boundary;
 const mouseTrail = [];
+
+let docStyle = getComputedStyle(document.documentElement);
+
+//get variable
+var colours = [
+    docStyle.getPropertyValue('--primary_color'),
+    docStyle.getPropertyValue('--secondary_color'),
+    docStyle.getPropertyValue('--tertiary_color'),
+    docStyle.getPropertyValue('--quartary_color'),
+    docStyle.getPropertyValue('--quintery_color')
+];
 
 W = canvas.width;
 H = canvas.height;
@@ -67,19 +78,9 @@ function initParticle(){
     for (let i = 0; i < number; i++) {
         size = (Math.random() * (15 - 5) + 5) * Math.sqrt(screenSize);
         //set the color of the particle
-        if(Math.random()>0.2){
-
-            var pColour = `rgb(
-                ${(Math.random() * (220 - 102) + 102)},
-                0,
-                ${(Math.random() * (255 - 153) + 153 )})`;
-        } else {
-            var pColour = `rgb(
-                ${(Math.random() * (255 - 240) + 240)},
-                ${(Math.random() * (150 - 120) + 120)},
-                ${(Math.random() * (60 - 20) + 20 )})`;
-        }
         
+        let pColour = colours[Math.floor(Math.random() * 5)];
+
         particles.push(new Particle(canvas, size, pColour));
     }
     console.log(particles.length)
