@@ -28,14 +28,7 @@ const mouseTrail = [];
 
 let docStyle = getComputedStyle(document.documentElement);
 
-//get variable
-var colours = [
-    docStyle.getPropertyValue('--primary_color'),
-    docStyle.getPropertyValue('--secondary_color'),
-    docStyle.getPropertyValue('--tertiary_color'),
-    docStyle.getPropertyValue('--quartary_color'),
-    docStyle.getPropertyValue('--quintery_color')
-];
+
 
 W = canvas.width;
 H = canvas.height;
@@ -78,9 +71,7 @@ function initParticle(){
     for (let i = 0; i < number; i++) {
         size = (Math.random() * (15 - 5) + 5) * Math.sqrt(screenSize);
         //set the color of the particle
-        
         let pColour = colours[Math.floor(Math.random() * 5)];
-
         particles.push(new Particle(canvas, size, pColour));
     }
     console.log(particles.length)

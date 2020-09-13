@@ -1,0 +1,47 @@
+/* Light Blue - https://coolors.co/122a39-315272-377dab-3ba9dc-46c4dd */
+
+/* CSS HEX */
+--gunmetal: #122a39ff;
+--bdazzled-blue: #315272ff;
+--star-command-blue: #377dabff;
+--carolina-blue: #3ba9dcff;
+--sky-blue-crayola: #46c4ddff;
+
+/* CSS HSL */
+--gunmetal: hsla(203, 52%, 15%, 1);
+--bdazzled-blue: hsla(210, 40%, 32%, 1);
+--star-command-blue: hsla(204, 51%, 44%, 1);
+--carolina-blue: hsla(199, 70%, 55%, 1);
+--sky-blue-crayola: hsla(190, 69%, 57%, 1);
+
+/* SCSS HEX */
+$gunmetal: #122a39ff;
+$bdazzled-blue: #315272ff;
+$star-command-blue: #377dabff;
+$carolina-blue: #3ba9dcff;
+$sky-blue-crayola: #46c4ddff;
+
+/* SCSS HSL */
+$gunmetal: hsla(203, 52%, 15%, 1);
+$bdazzled-blue: hsla(210, 40%, 32%, 1);
+$star-command-blue: hsla(204, 51%, 44%, 1);
+$carolina-blue: hsla(199, 70%, 55%, 1);
+$sky-blue-crayola: hsla(190, 69%, 57%, 1);
+
+/* SCSS RGB */
+$gunmetal: rgba(18, 42, 57, 1);
+$bdazzled-blue: rgba(49, 82, 114, 1);
+$star-command-blue: rgba(55, 125, 171, 1);
+$carolina-blue: rgba(59, 169, 220, 1);
+$sky-blue-crayola: rgba(70, 196, 221, 1);
+
+/* SCSS Gradient */
+$gradient-top: linear-gradient(0deg, #122a39ff, #315272ff, #377dabff, #3ba9dcff, #46c4ddff);
+$gradient-right: linear-gradient(90deg, #122a39ff, #315272ff, #377dabff, #3ba9dcff, #46c4ddff);
+$gradient-bottom: linear-gradient(180deg, #122a39ff, #315272ff, #377dabff, #3ba9dcff, #46c4ddff);
+$gradient-left: linear-gradient(270deg, #122a39ff, #315272ff, #377dabff, #3ba9dcff, #46c4ddff);
+$gradient-top-right: linear-gradient(45deg, #122a39ff, #315272ff, #377dabff, #3ba9dcff, #46c4ddff);
+$gradient-bottom-right: linear-gradient(135deg, #122a39ff, #315272ff, #377dabff, #3ba9dcff, #46c4ddff);
+$gradient-top-left: linear-gradient(225deg, #122a39ff, #315272ff, #377dabff, #3ba9dcff, #46c4ddff);
+$gradient-bottom-left: linear-gradient(315deg, #122a39ff, #315272ff, #377dabff, #3ba9dcff, #46c4ddff);
+$gradient-radial: radial-gradient(#122a39ff, #315272ff, #377dabff, #3ba9dcff, #46c4ddff);

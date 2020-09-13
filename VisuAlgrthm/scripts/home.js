@@ -12,6 +12,7 @@ $(function() {
             jump(p);
         })
     }
+    setColors();
 });
 // Determine whether the nav element should have an absolute or fixed position
 // function setNavPosition(){
@@ -45,20 +46,4 @@ $('#navBtn').click(function(event){
 })
 $(document).click(function(){
     $('nav').first().removeClass('navActive')
-})
-$('#switcher').click(function(){
-    a = colours
-    var j, x, i;
-    for (i = a.length - 1; i > 0; i--) {
-        j = Math.floor(Math.random() * (i + 1));
-        x = a[i];
-        a[i] = a[j];
-        a[j] = x;
-    }
-    let docStyle = getComputedStyle(document.documentElement);
-    docStyle.setProperty('--primary_color', a[0]);
-    docStyle.setProperty('--secondary_color', a[1]);
-    docStyle.setProperty('--tertiary_color', a[2]);
-    docStyle.setProperty('--quartery_color', a[3]);
-    docStyle.setProperty('--quintery_color', a[4]);
 })
