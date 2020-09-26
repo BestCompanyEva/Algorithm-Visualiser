@@ -31,7 +31,7 @@ const qs = new AlgorithmData(
     ],
     function(){
         var slider = $('#amountSlider');
-        slider.attr({'min':'5', 'max':'100', 'value':'50'})
+        slider.attr({'min':'5', 'max':'100', 'value':'20'})
         document.getElementById('amountSliderValue').innerHTML = slider.attr('value');
     }
 )
