@@ -1,12 +1,21 @@
 const canvas = document.getElementById("vis-alg");
 const ctx = canvas.getContext("2d"); // CTX MEANS CONTEXT
 
+canvas.width = 1800;
+canvas.height = 1000;
+
+cwidth = 900;
+cheight = 500;
+canvas.style.width = "900px";
+canvas.style.height = "500px";
+
+canvas.getContext('2d').scale(2,2);
 
 const barWidth = 0.6;
 const textWidth = 1.1;
 const offetTop = 100;
 const offsetBot = 50;
-const offsetLeft = 50
+const offsetLeft = 50;
 
 dragging = false;
 
@@ -22,7 +31,7 @@ class Bar{
         this.height = 0;
         this.width = 0;
         this.positionX = 0;
-        this.positionY = canvas.height - offsetBot;
+        this.positionY = cheight - offsetBot;
     }
     draw(){
         ctx.beginPath();
@@ -53,10 +62,10 @@ class Bar{
     }
     changeValue(value){
         let realWidth = this.width / barWidth;
-        //ctx.clearRect(this.positionX - realWidth / 2, 0, realWidth, canvas.height);
+        //ctx.clearRect(this.positionX - realWidth / 2, 0, realWidth, cheight);
         this.value = value;
         this.height = one * this.value;
-        ctx.clearRect(0,0,canvas.width,canvas.height);
+        ctx.clearRect(0,0,cwidth,cheight);
         drawEverything();
     }
 }
@@ -70,7 +79,7 @@ function between(x, min, max) {
   }
 
 function init(length=$('#amountSliderValue').html()|20,array=undefined,random=false){
-    ctx.clearRect(0, 0, canvas.width, canvas.height)
+    ctx.clearRect(0, 0, cwidth, cheight)
     if (random == true){
         arr = randomArr(length);
     } else {
@@ -97,9 +106,9 @@ function randomArr(length){
 }
 
 function setData(){
-    width = (canvas.width - offsetLeft) / arr.length;
+    width = (cwidth - offsetLeft) / arr.length;
     maxValue = 100 //Math.max.apply(null, arr.map(x => x.value);
-    one = (canvas.height - (offetTop + offsetBot)) / maxValue;
+    one = (cheight - (offetTop + offsetBot)) / maxValue;
     textSize = (arr.length > 20) ? 0 : 25;//setTextSize();
     verticalTextPos =  10 + textSize;
     for (var i = 0; i < arr.length; i++){
@@ -124,9 +133,9 @@ function drawAxis(max, one){
     let left = (offsetLeft-axisWidth) / 5 * 4;
     let middle = left + axisWidth / 2;
     let right = left + axisWidth;
-    let height = canvas.height - offsetBot;
+    let height = cheight - offsetBot;
     ctx.moveTo(middle + 0.5, height + 0.5);
-    height = canvas.height - (offsetBot + max * one);
+    height = cheight - (offsetBot + max * one);
     ctx.lineTo(middle + 0.5, height - 10 + 0.5);
 
     ctx.font = 12 + 'px Arial';
@@ -134,11 +143,18 @@ function drawAxis(max, one){
     ctx.fillStyle = 'grey';
 
     for (const p of divPos) {
-        height = canvas.height - (offsetBot + one * p);
-        let add = (p % 2 == 0) ? 0.5 : 0
+        height = cheight - (offsetBot + one * p);
+        let adds = {
+            0:0.5,
+            25:0.0,
+            50:-0.5,
+            75:0.5,
+            100:0
+        }
+        let add = adds[p];
         ctx.moveTo(left + add, height + add);
-        ctx.lineTo(canvas.width - 3 + add, height + add);
-        ctx.fillText(p, left/2 + 0.5, height + 4 + 0.5);
+        ctx.lineTo(cwidth - 3 + add, height + add);
+        ctx.fillText(p, left/2 - 1, height + 4.5);
     }
     ctx.stroke();
 
@@ -152,7 +168,8 @@ function quicksort(array, lo, hi){
     }
 }
 function partition(array, lo, hi){
-    var pivot = array[Math.floor((hi + lo) / 2)].value;
+    var pivotBox = array[Math.floor((hi + lo) / 2)];
+    var pivot = pivotBox.value;
     var i = lo - 1;
     var j = hi + 1;
     while(true){
