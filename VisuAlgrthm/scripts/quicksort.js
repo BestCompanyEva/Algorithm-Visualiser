@@ -1,11 +1,15 @@
 const canvas = document.getElementById("vis-alg");
 const ctx = canvas.getContext("2d"); // CTX MEANS CONTEXT
+const descr = document.getElementById('description');
 
 canvas.width = 1800;
 canvas.height = 1000;
 
-cwidth = 900;
-cheight = 500;
+var delay = 1000;
+var speed = 0.3;
+
+var cwidth = 900;
+var cheight = 500;
 canvas.style.width = "900px";
 canvas.style.height = "500px";
 
@@ -32,10 +36,13 @@ class Bar{
         this.width = 0;
         this.positionX = 0;
         this.positionY = cheight - offsetBot;
+        this.color = 'purple';
+        this.stable = false;
+        this
     }
     draw(){
         ctx.beginPath();
-        ctx.fillStyle = 'purple';
+        ctx.fillStyle = (this.stable && this.color != "blue") ? "grey" : this.color;
         ctx.rect(Math.round(this.positionX - this.width / 2) , Math.round(this.positionY - this.height), Math.round(this.width), Math.round(this.height));
         ctx.fill();
     }
@@ -65,7 +72,33 @@ class Bar{
         //ctx.clearRect(this.positionX - realWidth / 2, 0, realWidth, cheight);
         this.value = value;
         this.height = one * this.value;
-        ctx.clearRect(0,0,cwidth,cheight);
+        drawEverything();
+    }
+    pivot(){
+        for (const box of arr) {
+            if(box.color == "blue"){
+                box.color = "purple"
+            }
+        }
+        this.color = "blue";
+        drawEverything();
+    }
+    comparing1(){
+        for (const box of arr) {
+            if(box.color == "red"){
+                box.color = "purple"
+            }
+        }
+        this.color = "red";
+        drawEverything();
+    }
+    comparing2(){
+        for (const box of arr) {
+            if(box.color == "green"){
+                box.color = "purple"
+            }
+        }
+        this.color = "green";
         drawEverything();
     }
 }
@@ -79,7 +112,6 @@ function between(x, min, max) {
   }
 
 function init(length=$('#amountSliderValue').html()|20,array=undefined,random=false){
-    ctx.clearRect(0, 0, cwidth, cheight)
     if (random == true){
         arr = randomArr(length);
     } else {
@@ -96,6 +128,7 @@ function init(length=$('#amountSliderValue').html()|20,array=undefined,random=fa
 }
 
 function drawEverything(){
+    ctx.clearRect(0,0,cwidth,cheight);
     drawAxis(maxValue, one);
     drawBars();
 }
@@ -134,7 +167,7 @@ function drawAxis(max, one){
     let middle = left + axisWidth / 2;
     let right = left + axisWidth;
     let height = cheight - offsetBot;
-    ctx.moveTo(middle + 0.5, height + 0.5);
+    ctx.moveTo(middle + 0.5, height +10 + 0.5);
     height = cheight - (offsetBot + max * one);
     ctx.lineTo(middle + 0.5, height - 10 + 0.5);
 
@@ -160,31 +193,86 @@ function drawAxis(max, one){
 
 }
 
-function quicksort(array, lo, hi){
+async function quicksort(array, lo, hi){
     if (lo < hi){
-        var p = partition(array, lo, hi);
-        quicksort(array, lo, p);
-        quicksort(array, p + 1, hi);
+        var p = await partition(array, lo, hi);
+        console.log(p)
+        await quicksort(array, lo, p - 1);
+        await quicksort(array, p + 1, hi);
     }
+    array[lo].stable = true;
+    drawEverything();
 }
-function partition(array, lo, hi){
-    var pivotBox = array[Math.floor((hi + lo) / 2)];
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function partition(array, lo, hi){
+    var pivotBox = array[hi];
+    pivotBox.stable = true;
+    pivotBox.pivot();
+    descr.innerHTML =  pivotBox.value + " is the pivot"
     var pivot = pivotBox.value;
-    var i = lo - 1;
-    var j = hi + 1;
+    await sleep(delay);
+    var i = lo;
+    var j = lo;
     while(true){
-        do {
-            i++
-        } while (array[i].value < pivot);
-        do {
-            j--;
-        } while (array[j].value > pivot)
-        if (i >= j){
+        array[j].comparing2();
+        array[j].comparing1();
+        descr.innerHTML =  `Comparing ${array[j].value} and ${pivot}`
+        await sleep(delay);
+        while (array[j].value < pivot){
+            descr.innerHTML =  `${array[j].value} is smaller than ${pivot}.`
+            await sleep(delay);
+            j++;
+            array[j].comparing1();
+            descr.innerHTML =  `Incrementing j and comparing ${array[j].value} with ${pivot}.`;
+            await sleep(delay);
+        }
+        if (j >= hi){
+            descr.innerHTML =  `Reached the end`;
+            await sleep(delay);
             return j;
         }
+        descr.innerHTML =  `${array[j].value} is greater than ${pivot}.`
+        await sleep(delay);
+        i = (i<=j) ? j+1 : i;
+        descr.innerHTML =  `Comparing ${array[i].value} and ${pivot}`;
+        array[i].comparing2();
+        await sleep(delay)
+        while (array[i].value > pivot){
+            descr.innerHTML =  `${array[i].value} is greater than ${pivot}.`
+            await sleep(delay);
+            i++;
+            array[i].comparing2();
+            descr.innerHTML =  `Incrementing i and comparing ${array[i].value} with ${pivot}.`;
+            await sleep(delay);
+        }
+        if (i >= hi){
+            let x = array[hi];
+            array[hi] = array[j];
+            array[j] = x;
+            descr.innerHTML =  `Reached the end, swaping pivot and ${array[j].value}`;
+            setData();
+            drawEverything();
+            await sleep(delay)
+            return j;
+        }
+        descr.innerHTML =  `${array[i].value} is smaller or equal ${pivot}.`
+        await sleep(delay);
         let x = array[i];
         array[i] = array[j];
         array[j] = x;
+        setData();
+        drawEverything();
+        descr.innerHTML =  `Swapping ${array[i].value} and ${array[j].value}.`
+        j+=1;
+        if (i==j){
+            i = j + 1;
+        }
+        await sleep(delay);
+        
     }
 }
 
@@ -308,6 +396,11 @@ $(document).mouseup(function(){
 document.getElementById('amountSlider').oninput = function() {
     document.getElementById('amountSliderValue').innerHTML = this.value;
     init(this.value);
+}
+
+document.getElementById('tempoSlider').oninput = function() {
+    document.getElementById('tempoSliderValue').innerHTML = this.value;
+    delay = 1000 / this.value;
 }
 $('#randomize').click(function(){
     init(parseInt($('#amountSliderValue').html()),undefined,true);

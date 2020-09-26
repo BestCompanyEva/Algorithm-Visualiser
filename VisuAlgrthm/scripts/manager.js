@@ -27,12 +27,16 @@ const qs = new AlgorithmData(
     `scripts\\quicksort.js`,
     [
         $('#amountSliderContainer'),
-        $('#randomize')
+        $('#randomize'),
+        $('#tempoSliderContainer')
     ],
     function(){
         var slider = $('#amountSlider');
         slider.attr({'min':'5', 'max':'100', 'value':'20'})
         document.getElementById('amountSliderValue').innerHTML = slider.attr('value');
+        var tempoSlider = $('#tempoSlider');
+        tempoSlider.attr({'min':'0.1', 'max':'10', 'value':'1'})
+        document.getElementById('tempoSliderValue').innerHTML = tempoSlider.attr('value');
     }
 )
 //Algorithm container

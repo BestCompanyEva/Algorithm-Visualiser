@@ -24,6 +24,17 @@
     font-size: 3em;
     margin: auto;
 }
+#tempoSliderContainer{
+  width: 700; /* Width of the outside container */
+  margin: auto;
+  text-align: center;
+}
+
+#tempoSliderValue{
+  color: purple;
+  font-size: 3em;
+  margin: auto;
+}
 .slider {
     -webkit-appearance: none;
     width: 100%;
