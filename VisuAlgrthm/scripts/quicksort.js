@@ -21,12 +21,75 @@ const offetTop = 100;
 const offsetBot = 50;
 const offsetLeft = 50;
 
-dragging = false;
-
+var dragging = false;
+var executing = false;
+var comparisons = 0;
 
 $(function(){
     arr = [];
     init();
+
+    $('#vis-alg').mouseenter(function(){
+        $('#showValue').removeClass('invisible');
+    });
+    
+    $(document).mousemove(descriptionHandler);
+    
+    $('#vis-alg').mouseleave(function(){
+        $('#showValue').css('opacity','0');
+        $('#showValue').addClass('invisible');
+    })
+    
+    $('#vis-alg').mousedown(function(){
+        if (draggableObj){
+            dragging = true;
+        }
+    })
+    $(document).mouseup(function(){
+        if (dragging){
+            dragging = false;
+        }
+    })
+    
+    document.getElementById('amountSlider').oninput = function() {
+        document.getElementById('amountSliderValue').innerHTML = this.value;
+        init(this.value);
+    }
+    
+    document.getElementById('tempoSlider').oninput = function() {
+        value = convertValue(this.value)
+        document.getElementById('tempoSliderValue').innerHTML = value;
+        delay = 1000 / value;
+        
+    }
+    $('#randomize').click(function(){
+        init(parseInt($('#amountSliderValue').html()),undefined,true);
+    })
+    $('#sort').click(async function(){
+        comparisons = 0;
+        executing = true;
+        var toDisable = [
+                $('#randomize'),
+                $('#sort'),
+                $('#amountSlider')
+        ]
+        toDisable.forEach(element => {
+            element[0].disabled = true;
+        });
+        await quicksort(arr, 0, arr.length - 1);
+        arr.forEach(element => {
+            element.stable = false;
+            element.color = "purple";
+        });
+        drawEverything();
+        init(length=arr.length, undefined, false);
+        toDisable.forEach(element => {
+            element[0].disabled = false;
+        });
+        await sleep(1, "Done!");
+        executing = false;
+        console.log(comparisons + " comparisons");
+    })
 })
 
 class Bar{
@@ -119,7 +182,7 @@ function init(length=$('#amountSliderValue').html()|20,array=undefined,random=fa
             if(arr.length > length){
                 arr.pop();
             } else {
-                arr.push(new Bar(20));
+                arr.push(new Bar(arr.length + 1));
             }
         }
     }
@@ -131,6 +194,7 @@ function drawEverything(){
     ctx.clearRect(0,0,cwidth,cheight);
     drawAxis(maxValue, one);
     drawBars();
+    descriptionHandler();
 }
 
 function randomArr(length){
@@ -193,19 +257,63 @@ function drawAxis(max, one){
 
 }
 
+var hasDisappeared = true
+function descriptionHandler(){
+    if (!executing){valueHandler()}
+    let rect = mouseOnBarCheck().value;
+    if (rect && hasDisappeared){
+        $('#showValue').html(rect);
+        $('#showValue').css({'opacity':'1'});
+        $('#showValue').css('transition-delay', '0.5s');
+
+    } else {
+        if (hasDisappeared){
+            hasDisappeared = false;
+            setTimeout(function(){
+                hasDisappeared = true;
+                descriptionHandler();
+            }, 100)
+        }
+        $('#showValue').css('opacity','0');
+        $('#showValue').css('transition-delay', '0s');
+
+    }
+}
+
+
+
 async function quicksort(array, lo, hi){
     if (lo < hi){
         var p = await partition(array, lo, hi);
-        console.log(p)
         await quicksort(array, lo, p - 1);
         await quicksort(array, p + 1, hi);
     }
-    array[lo].stable = true;
-    drawEverything();
+    if (array[lo] && !array[lo].stable){    
+        array[lo].stable = true;
+        drawEverything();
+        await sleep(delay, `${array[lo].value} is on the correct position`);
+    }
+
 }
 
-function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
+async function sleep(ms, msg) {
+    if (msg){
+        descr.innerHTML = msg;
+    }
+
+    let defaultDelay = (ms == delay) ? true : false;
+    if (defaultDelay){
+        let counter = 0;
+        function wait5ms(){
+            return new Promise(resolve => setTimeout(resolve, 5));
+        }
+        while (counter < delay){
+            await wait5ms();
+            counter += 5;
+        }
+    } else {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
 }
 
 async function partition(array, lo, hi){
@@ -218,60 +326,61 @@ async function partition(array, lo, hi){
     var i = lo;
     var j = lo;
     while(true){
-        array[j].comparing2();
-        array[j].comparing1();
-        descr.innerHTML =  `Comparing ${array[j].value} and ${pivot}`
-        await sleep(delay);
-        while (array[j].value < pivot){
-            descr.innerHTML =  `${array[j].value} is smaller than ${pivot}.`
-            await sleep(delay);
-            j++;
-            array[j].comparing1();
-            descr.innerHTML =  `Incrementing j and comparing ${array[j].value} with ${pivot}.`;
-            await sleep(delay);
-        }
         if (j >= hi){
-            descr.innerHTML =  `Reached the end`;
-            await sleep(delay);
+            await sleep(delay, `Reached the end`);
             return j;
         }
-        descr.innerHTML =  `${array[j].value} is greater than ${pivot}.`
-        await sleep(delay);
+        array[j].comparing1();
+        comparisons++;
+        await sleep(delay, `Comparing ${array[j].value} and ${pivot}`);
+        while (array[j].value < pivot){
+            await sleep(delay, `${array[j].value} is smaller than ${pivot}.`);
+            j++;
+            array[j].comparing1();
+            comparisons++;
+            await sleep(delay, `Incrementing j and comparing ${array[j].value} with ${pivot}.`);
+        }
+        if (j >= hi){
+            await sleep(delay, `Reached the end`);
+            return j;
+        }
+        await sleep(delay, `${array[j].value} is not smaller than ${pivot}.`);
         i = (i<=j) ? j+1 : i;
-        descr.innerHTML =  `Comparing ${array[i].value} and ${pivot}`;
         array[i].comparing2();
-        await sleep(delay)
+        comparisons++;
+        await sleep(delay, `Comparing ${array[i].value} and ${pivot}`)
         while (array[i].value > pivot){
-            descr.innerHTML =  `${array[i].value} is greater than ${pivot}.`
-            await sleep(delay);
+            await sleep(delay, `${array[i].value} is greater than ${pivot}.`);
             i++;
             array[i].comparing2();
-            descr.innerHTML =  `Incrementing i and comparing ${array[i].value} with ${pivot}.`;
-            await sleep(delay);
+            comparisons++;
+            await sleep(delay, `Incrementing i and comparing ${array[i].value} with ${pivot}.`);
         }
         if (i >= hi){
             let x = array[hi];
             array[hi] = array[j];
             array[j] = x;
-            descr.innerHTML =  `Reached the end, swaping pivot and ${array[j].value}`;
             setData();
             drawEverything();
-            await sleep(delay)
+            await sleep(delay, `Reached the end, swaping pivot and ${array[j].value}. The pivot is now on the correct position`)
             return j;
         }
-        descr.innerHTML =  `${array[i].value} is smaller or equal ${pivot}.`
-        await sleep(delay);
+        await sleep(delay, `${array[i].value} is smaller or equal ${pivot}.`);
         let x = array[i];
         array[i] = array[j];
         array[j] = x;
         setData();
         drawEverything();
-        descr.innerHTML =  `Swapping ${array[i].value} and ${array[j].value}.`
+        await sleep(delay, `Swapping ${array[i].value} and ${array[j].value}.`);
         j+=1;
+        i++;
         if (i==j){
             i = j + 1;
         }
-        await sleep(delay);
+
+        array[i].comparing2();
+        drawEverything();
+        await sleep(delay, `Incementing i.`);
         
     }
 }
@@ -323,37 +432,6 @@ function mouseOnBarCheck(textInclusive=false){
     return false;
 }
 
-
-
-$('#vis-alg').mouseenter(function(){
-    $('#showValue').removeClass('invisible');
-});
-
-$(document).mousemove(descriptionHandler);
-
-var hasDisappeared = true
-function descriptionHandler(){
-    valueHandler()
-    let rect = mouseOnBarCheck().value;
-    if (rect && hasDisappeared){
-        $('#showValue').html(rect);
-        $('#showValue').css({'opacity':'1'});
-        $('#showValue').css('transition-delay', '0.5s');
-
-    } else {
-        if (hasDisappeared){
-            hasDisappeared = false;
-            setTimeout(function(){
-                hasDisappeared = true;
-                descriptionHandler();
-            }, 100)
-        }
-        $('#showValue').css('opacity','0');
-        $('#showValue').css('transition-delay', '0s');
-
-    }
-}
-
 function valueHandler(){
     let rect = document.getElementById('vis-alg').getBoundingClientRect();
     let xMod = rect.left + window.scrollX;
@@ -377,35 +455,3 @@ function valueHandler(){
 
 }
 
-$('#vis-alg').mouseleave(function(){
-    $('#showValue').css('opacity','0');
-    $('#showValue').addClass('invisible');
-})
-
-$('#vis-alg').mousedown(function(){
-    if (draggableObj){
-        dragging = true;
-    }
-})
-$(document).mouseup(function(){
-    if (dragging){
-        dragging = false;
-    }
-})
-
-document.getElementById('amountSlider').oninput = function() {
-    document.getElementById('amountSliderValue').innerHTML = this.value;
-    init(this.value);
-}
-
-document.getElementById('tempoSlider').oninput = function() {
-    document.getElementById('tempoSliderValue').innerHTML = this.value;
-    delay = 1000 / this.value;
-}
-$('#randomize').click(function(){
-    init(parseInt($('#amountSliderValue').html()),undefined,true);
-})
-$('#sort').click(function(){
-    quicksort(arr, 0, arr.length - 1);
-    init(length=arr.length, undefined, false);
-})

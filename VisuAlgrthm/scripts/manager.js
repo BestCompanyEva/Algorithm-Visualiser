@@ -35,8 +35,8 @@ const qs = new AlgorithmData(
         slider.attr({'min':'5', 'max':'100', 'value':'20'})
         document.getElementById('amountSliderValue').innerHTML = slider.attr('value');
         var tempoSlider = $('#tempoSlider');
-        tempoSlider.attr({'min':'0.1', 'max':'10', 'value':'1'})
-        document.getElementById('tempoSliderValue').innerHTML = tempoSlider.attr('value');
+        tempoSlider.attr({'min':'1', 'max':'28530', 'value':'5000'})
+        document.getElementById('tempoSliderValue').innerHTML = convertValue(tempoSlider.attr('value'));
     }
 )
 //Algorithm container

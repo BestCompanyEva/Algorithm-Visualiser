@@ -50,7 +50,7 @@
   }
   
 /* Mouse-over effects */
-.slider:hover{
+.slider:not([disabled]):hover{
   opacity: 1; /* Fully shown on mouse-over */
 }
 
@@ -72,11 +72,25 @@
   cursor: pointer;
 }
 
+.slider[disabled]::-webkit-slider-thumb {
+  background: gray;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.slider[disabled]::-moz-range-thumb {
+  background: gray;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
 .invisible{
     display: none;
 }
 
 #showValue{
+  text-align: center;
+  min-width: 18px;
   padding: 5px;
   border: 1px solid #ccc;
   background: #ececec;
