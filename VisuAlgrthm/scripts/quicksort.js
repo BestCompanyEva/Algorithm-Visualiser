@@ -5,7 +5,7 @@ const descr = document.getElementById('description');
 canvas.width = 1800;
 canvas.height = 1000;
 
-var delay = 1000;
+var delay = 1;
 var speed = 0.3;
 
 var cwidth = 900;
@@ -88,7 +88,7 @@ $(function(){
         });
         await sleep(1, "Done!");
         executing = false;
-        console.log(comparisons + " comparisons");
+        console.log(comparisons + " comparisons", additional + "Additionals");
     })
 })
 
@@ -284,6 +284,15 @@ function descriptionHandler(){
 
 async function quicksort(array, lo, hi){
     if (lo < hi){
+        
+        if(allEqual(array, lo, hi)){
+            for (let index = lo; index < hi+1; index++) {
+                const element = array[index];
+                element.stable = true;
+            }
+            drawEverything();
+            return
+        }
         var p = await partition(array, lo, hi);
         await quicksort(array, lo, p - 1);
         await quicksort(array, p + 1, hi);
@@ -300,22 +309,32 @@ async function sleep(ms, msg) {
     if (msg){
         descr.innerHTML = msg;
     }
-
-    let defaultDelay = (ms == delay) ? true : false;
-    if (defaultDelay){
-        let counter = 0;
-        function wait5ms(){
-            return new Promise(resolve => setTimeout(resolve, 5));
-        }
-        while (counter < delay){
-            await wait5ms();
-            counter += 5;
-        }
-    } else {
-        return new Promise(resolve => setTimeout(resolve, ms));
-    }
+    return new Promise(resolve => setTimeout(resolve, ms));
+    // let defaultDelay = (ms == delay) ? true : false;
+    // if (defaultDelay){
+    //     let counter = 0;
+    //     function wait5ms(){
+    //         return new Promise(resolve => setTimeout(resolve, 5));
+    //     }
+    //     while (counter < delay){
+    //         await wait5ms();
+    //         counter += 5;
+    //     }
+    // } else {
+    //     return new Promise(resolve => setTimeout(resolve, ms));
+    // }
 }
-
+additional = 0;
+function allEqual(array, lo, hi){
+    let x = array[lo].value;
+    additional++;
+    for (let index = lo + 1; index < hi + 1; index++){
+        if (array[index].value != x){
+            return false;
+        }
+    }
+    return true;
+}
 async function partition(array, lo, hi){
     var pivotBox = array[hi];
     pivotBox.stable = true;
