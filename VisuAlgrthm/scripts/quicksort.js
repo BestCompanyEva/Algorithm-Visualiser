@@ -79,7 +79,7 @@ $(function(){
         await quicksort(arr, 0, arr.length - 1);
         arr.forEach(element => {
             element.stable = false;
-            element.color = "purple";
+            element.color = "#f6e898";
         });
         drawEverything();
         init(length=arr.length, undefined, false);
@@ -99,25 +99,25 @@ class Bar{
         this.width = 0;
         this.positionX = 0;
         this.positionY = cheight - offsetBot;
-        this.color = 'purple';
+        this.color = '#377dabff';
         this.stable = false;
         this
     }
     draw(){
         ctx.beginPath();
-        ctx.fillStyle = (this.stable && this.color != "blue") ? "grey" : this.color;
+        ctx.fillStyle = (this.stable && this.color != "blue") ? "#f6e898" : this.color;
         ctx.rect(Math.round(this.positionX - this.width / 2) , Math.round(this.positionY - this.height), Math.round(this.width), Math.round(this.height));
         ctx.fill();
     }
     drawText(){
-        ctx.font = textSize + 'px Arial';
+        ctx.font = textSize + 'px Roboto';
         ctx.textAlign = 'center';
-        ctx.fillStyle = 'black';
+        ctx.fillStyle = '#edf0f1';
         let _100Mult = (this.value == 100) ? 1.5 : 1;
         ctx.fillText(this.value, this.positionX, this.positionY + verticalTextPos/*, this.width * textWidth * _100Mult*/);
     }
     draggable(x,y){
-        let range = 5;
+        let range = 7;
         if(between(x, this.positionX - this.width / 2, this.positionX + this.width / 2) && between(y, this.positionY - this.height - range, this.positionY - this.height + range)){
             return true;
         }
@@ -140,7 +140,7 @@ class Bar{
     pivot(){
         for (const box of arr) {
             if(box.color == "blue"){
-                box.color = "purple"
+                box.color = "#377dabff"
             }
         }
         this.color = "blue";
@@ -148,17 +148,17 @@ class Bar{
     }
     comparing1(){
         for (const box of arr) {
-            if(box.color == "red"){
-                box.color = "purple"
+            if(box.color == "#91e5f6ff"){
+                box.color = "#377dabff"
             }
         }
-        this.color = "red";
+        this.color = "#91e5f6ff";
         drawEverything();
     }
     comparing2(){
         for (const box of arr) {
             if(box.color == "green"){
-                box.color = "purple"
+                box.color = "#377dabff"
             }
         }
         this.color = "green";

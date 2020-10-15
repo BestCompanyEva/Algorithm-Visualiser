@@ -1,38 +1,78 @@
 *{
+  box-sizing: border-box;
   user-select: none;
+  /*background-color: #24252A;*/
+  background-color: #141822;
+  margin: 0;
+  padding: 0;
+  
 }
+
+li, a{
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  color: #edf0f1;
+  text-decoration: none;
+}
+.navcontainer{
+  display: flex;
+  /*justify-content: space-between;*/
+  align-items: center;
+  padding: 30px 10%;
+}
+.topnav{
+  list-style: none;
+}
+.topnav li {
+  display: inline-block;
+  padding: 0px 20px;
+}
+.topnav li a {
+  transition: all 0.3s ease 0s;
+}
+.topnav li a:hover {
+  color:#0088a9
+}
+
 
 #vis-alg{
 
     display: block;
     margin: auto;
-    border: 1px solid black;
+    /*border: 1px solid black;*/
 }
 
 #centerContainer{
-    width: 900px;
+    position: relative;
+    
     margin: auto;
+    text-align: center;
+    font-family: "Roboto", sans-serif;
+    color: #edf0f1;
 }
 #amountSliderContainer{
-    width: 700; /* Width of the outside container */
+    width: 400; /* Width of the outside container */
     margin: auto;
     text-align: center;
   }
 
 #amountSliderValue{
-    color: purple;
-    font-size: 3em;
+    color: #377dabff;
+    font-family: "Roboto", sans-serif;
+    font-size: 2em;
     margin: auto;
 }
 #tempoSliderContainer{
-  width: 700; /* Width of the outside container */
+  width: 400; /* Width of the outside container */
   margin: auto;
   text-align: center;
 }
 
 #tempoSliderValue{
-  color: purple;
-  font-size: 3em;
+  color: #377dabff;
+  font-family: "Roboto", sans-serif;
+  font-size: 2em;
   margin: auto;
 }
 .slider {
@@ -45,8 +85,8 @@
     opacity: 0.7;
     -webkit-transition: .2s;
     transition: opacity .2s;
-    margin-bottom: 50px;
-    margin-top: 25px;
+    margin-bottom: 30px;
+    margin-top: 20px;
   }
   
 /* Mouse-over effects */
@@ -60,7 +100,7 @@
   width: 25px;
   height: 25px;
   border-radius: 50%; 
-  background: purple;
+  background: #377dabff;
   cursor: pointer;
 }
 
@@ -68,7 +108,7 @@
   width: 25px;
   height: 25px;
   border-radius: 50%;
-  background: purple;
+  background: #377dabff;
   cursor: pointer;
 }
 

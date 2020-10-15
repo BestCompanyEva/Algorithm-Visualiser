@@ -23,12 +23,15 @@
     --quartery_color: #377dabff;
     --quintery_color: #3ba9dcff;*/
     scroll-behavior: smooth;
+    /*#0d111a*/
   }
 body{
     scrollbar-width: none;
     overflow-x: hidden;
     -ms-overflow-style: none;
     /*background-color: rgb(41, 41, 41);*/
+    background-image: linear-gradient(to bottom, black, #131825);
+    font-family: "Roboto", sans-serif;
 }
 #canvas1 {
     position: relative;
@@ -46,7 +49,7 @@ header{
 }
 header .container{
     width: 100%;
-    background-color: rgba(10, 10, 10, 0.8);
+    background-color: rgba(13, 17, 26, 0.8);
     position: absolute;
     text-align: center;
     padding-left: 10%;
@@ -54,7 +57,7 @@ header .container{
 header .container a{
     text-decoration: none;
     color: rgb(184, 182, 182);
-    font-size: 1.5rem;
+    font-size: 18px;
     text-shadow: inset 10px 10px black;
     /*font-family: 'Agency FB';*/
     font-family: 'Roboto', sans-serif;
@@ -109,7 +112,8 @@ header h1 p{
     to{opacity: 1; top: var(--title_top);}
 }
 .article{
-    font-size: 2em;
+    font-size: 1.5em;
+    color: #edf0f1;
     width: 1050px;
     height: auto;
     left: 50%;
@@ -172,7 +176,7 @@ header h1 p{
 .algo-container-content{
     margin: 0px;
     margin-top: 250px;
-    background-color: white;
+    background-color: #edf0f1;
     background-clip: border-box;
     padding: 25px;
     width: 100%;
@@ -214,7 +218,7 @@ nav{
     width: 200px;
     height: 100%;
     /*background-color: var(--primary_color);*/
-    color: white;
+    color: #edf0f1;
     margin: 0px;
     text-align: left;
     z-index: 10;
@@ -276,7 +280,7 @@ nav h1{
 
 footer{
     background-color: #303030;
-    color: white;
+    color: #edf0f1;
     min-width: 10%;
     font-size: 4em;
     text-align: center;

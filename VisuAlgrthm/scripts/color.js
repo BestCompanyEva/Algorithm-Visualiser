@@ -1,9 +1,9 @@
 //default var 
 colours = [
-    "#91e5f6ff",
-    "#f6e898",
-    "#315272ff",
-    "#377dabff",
+    "#91e5f6ff", //light blue
+    "#f6e898",   //yellow
+    "#315272ff", //darker blue
+    "#377dabff", //ligther blue
     "#3ba9dcff"
 ];
 var re = /#[a-zA-Z0-9_]{6,8}/g
