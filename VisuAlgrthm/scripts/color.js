@@ -1,10 +1,11 @@
 //default var 
 colours = [
-    "#91e5f6ff", //light blue
-    "#f6e898",   //yellow
-    "#315272ff", //darker blue
-    "#377dabff", //ligther blue
-    "#3ba9dcff"
+    "#e02d5dff",
+    "#20fc8fff",
+    "#020122ff",
+    "#6665ddff",
+    "#3f5e5aff",
+
 ];
 var re = /#[a-zA-Z0-9_]{6,8}/g
 const fileSelector = document.getElementById('file-selector');
@@ -55,7 +56,7 @@ function setColors(){
             } else if ($(this).hasClass('article')){
                 $(this).css('border-top', '1px solid ' + colours[index]);
             } else if ($(this).hasClass('algo-container')){
-                $(this).css('border', '1.15px solid ' + colours[index]);
+                //$(this).css('border', '2px solid ' + colours[index]);
             } else {
                 $(this).css("background", colours[index]);
                 if ($(this).attr('id') == 'navBtn'){
