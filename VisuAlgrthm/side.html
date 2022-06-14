@@ -6,27 +6,57 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js" type="text/javascript" charset="UTF-8"></script>
     <script src="scripts/side.js" defer></script>
+    <script src="scripts/manager.js"defer></script>
     <title>Sorting Algorithms</title>
 </head>
+
+<header>
+  
+  <nav class="navContainer">
+    <ul class="topnav">
+      <li><a href="#">Bubble Sort</a></li>
+      <li><a href="#">Merge Sort</a></li>
+      <li><a href="#">Quick Sort</a></li>
+      <li><a href="#">Selection Sort</a></li>
+    </ul>
+
+  </nav>
+  
+    
+    
+  </div>
+</header>
 <body>
-    <div id="centerContainer">
-        <div id="amountSliderContainer" class="invisible">
-            <p id='amountSliderValue'></p>
-            <input type="range" min="5" max="100" value="30" class="slider" id="amountSlider">
-        </div>
-        <canvas id="vis-alg" height= '500px' width='900px'></canvas><br>
-        <a href="side.html?a=qs">Click here</a>
-        <input type="button" value="random" id="randomize" class="invisible">
-        <input type="button" value="sort" id="sort">
-    </div>
-    <div id="showValue" class="invisible"></div>
-    <div id="valueChanger" class="invisible">
-        <p>Change Value:</p>
-        <table>
-            <td id="valueChangerStartValue">20</td>
-            <td id="arrow">→</td>
-            <td id="valueChangerEndValue"><input type="number" name="" id="" min="1" max="99" maxlength="3" placeholder="0-99"></td>
-        </table>
-    </div>
+  <div class="sliders">
+    <div id="amountSliderContainer" class="invisible">
+      <p id='amountSliderValue'></p>
+      <input type="range" min="5" max="100" value="30" class="slider" id="amountSlider">
+  </div>
+  <div id="tempoSliderContainer" class="invisible">
+      <p id='tempoSliderValue'></p>
+      <input type="range" min="1" max="10000" value="5000" class="slider" id="tempoSlider" step="1">
+  </div>
+  </div>
+  <div class="controlButtons">
+    <input type="button" value="sort" id="sort">
+    <input type="button" value="random" id="randomize" class="invisible">
+    <a href="side.html?a=qs">Click here</a>
+    
+    
+  </div>
+  <div id="centerContainer">
+      <canvas id="vis-alg" height= '500px' width='900px'></canvas><br>
+      <p id="description"></p>
+      <div id="colorIcons">
+      
+        <img src="images/pivot.PNG" alt="purple" heigth="15px" width="15px" class="pivotIcon">   Pivot</img>
+        <img src="images/comparisonGreen.PNG" alt="lightGreen" heigth="15px" width="15px" class="comparisonIcon">   Comparison Value</img>
+        <img src="images/mintGreen.PNG" alt="green" heigth="15px" width="15px" class="finalPosIcon">   Final Position</img>
+
+      </div>
+      
+  </div>
+  <div id="showValue" class="invisible"></div>
+
 </body>
 </html>

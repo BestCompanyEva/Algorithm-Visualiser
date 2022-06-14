@@ -12,8 +12,8 @@ $(function() {
             jump(p);
         })
     }
+    setColors();
 });
-
 // Determine whether the nav element should have an absolute or fixed position
 // function setNavPosition(){
 //     _top = parseFloat($('#canvas1').css('height')) + 50.0;
@@ -26,6 +26,8 @@ $(function() {
 //     }
 // }
 
+//test
+//test2
 // When clicking on a topic in the nav element, scroll to the clicked topic
 function jump(node){
     for (const entry of $('.entry')) {

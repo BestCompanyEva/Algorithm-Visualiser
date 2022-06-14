@@ -4,81 +4,84 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie-edge">
-    <title>VisuAlgrthm</title>
+    <title>AlVis - The Algorithm Visualizer</title>
     <link rel="stylesheet" href="styles/home.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js" type="text/javascript" charset="UTF-8"></script>
+    <script src="scripts/home.js" defer></script>
     <script src="scripts/background.js" defer></script>
-    <script src ="scripts/home.js" defer></script>
+    <script src="scripts/color.js" defer></script>
 </head>
 
+
+<header>
+    <div class="container" >
+        <a href="#">Home</a>
+        <a href="#">News</a>
+        <a href="#">Contact</a>
+        <a href="#">About</a>
+        <input type="file" id="file-selector">
+        <input type="button" value="switch" id="switcher">
+    </div>
+        <h1><span class="colour_1">Al</span><span class="colour_2">Vis</span><br><p>The <span class="colour_1">Al</span>gorithm <span class="colour_2">Vis</span>ualizer</p></h1>
+        <canvas id="canvas1" class="colour_3"></canvas style="z-index: 2;">
+</header>
+
+<nav class="colour_3">
+    <h1>Contents:</h1>
+    <div id="navContents" class="colour_4"></div>
+</nav>
+<div id="navBtn" class="colour_3"></div>
 <body>
-    <header>
-        <div class="container" >
-            <a href="#">Home</a>
-            <a href="#">News</a>
-            <a href="#">Contact</a>
-            <a href="#">About</a>
-        </div>
-        <h1><span class="purple">Al</span><span class="orange">Vis</span><br><p>The <span class="purple">Al</span>gorithm <span class="orange">Vis</span>ualizer</p></h1>
-    </header>
-    <canvas id="canvas1"></canvas style="z-index: 2;">
-    <nav>
-        <h1>Contents:</h1>
-        <div id="navContents"></div>
-    </nav>
-    <div id="navBtn">
-        <div></div>
-    </div>
     <div class='algo article'>
-        <div class='algo-container'>
+        <div class='algo-container colour_2'>
             <div class="algo-image-container">
                 <img src="images/image-placeholder.png" alt="Placeholder">
             </div>
             <div class="algo-container-content">Insert Content here</div>
         </div>
-        <div class='algo-container'>
+        <div class='algo-container colour_2'>
             <div class="algo-image-container">
                 <img src="images/image-placeholder.png" alt="Placeholder">
             </div>
             <div class="algo-container-content">Insert Content here</div>
         </div>
-        <div class='algo-container'>
+        <div class='algo-container colour_2'>
             <div class="algo-image-container">
                 <img src="images/image-placeholder.png" alt="Placeholder">
             </div>
             <div class="algo-container-content">Insert Content here</div>
         </div>
     </div>
-    <div class="article align-left">
-        <h1 class="entry">Sorting Algorithms</h1>
+    <div class="article align-left colour_1">
+        <h1 class="entry colour_1">Sorting Algorithms</h1>
         <p>
             <img src="images/image-placeholder.png" alt="Placeholder" class="float hover-shadow">
             Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
         </p>
     </div>
-    <div class="article align-right">
-        <h1 class="entry">Sorting Algorithms2</h1>
+    <div class="article align-right colour_2">
+        <h1 class="entry colour_2">Sorting Algorithms2</h1>
         <p>
             <img src="images/image-placeholder.png" alt="Placeholder" class="float hover-shadow">
             Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
         </p>
     </div>
-    <div class="article align-left">
-        <h1 class="entry">Sorting Algorithms3</h1>
+    <div class="article align-left colour_1">
+        <h1 class="entry colour_1">Sorting Algorithms3</h1>
         <p>
             <img src="images/image-placeholder.png" alt="Placeholder" class="float hover-shadow">
             Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
         </p>
     </div>
-    <div class="article align-right">
-        <h1 class="entry">Sorting Algorithms4</h1>
+    <div class="article align-right colour_2">
+        <h1 class="entry colour_2">Sorting Algorithms4</h1>
         <p>
             <img src="images/image-placeholder.png" alt="Placeholder" class="float hover-shadow">
             Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
         </p>
     </div>
-    <footer>
+    <footer class="colour_5">
         Some stuff
     </footer>
 </body>

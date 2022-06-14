@@ -2,15 +2,10 @@
 const canvas = document.getElementById("canvas1");
 const ctx = canvas.getContext("2d"); // CTX MEANS CONTEXT
 
-
-const number = 500;
-const speed = 2;
-const linkWidth = 0.5;
-const linkDistance = 150;
-let size;
-var repulseDistance = 100;
-const linkDistance2 = (0.7 * linkDistance) ** 2;
-const repulseDistance2 = repulseDistance ** 2;
+var number; //number of particles
+var speed; //speed of the particles
+const linkWidth = 0.5; //width of connection lines
+var linkDistance, linkDistance2, size, repulseDistance, repulseDistance2;
 Math.TAU = Math.PI * 2;
 var pColour = "#8A2BE2";
 const linkColour = "#FFF";
@@ -21,83 +16,77 @@ const mouse = { x: 0, y: 0}
 let particles = [];
 const candidates = [];
 var W, H;
-const links = [[], [], [], []];
-const linkBatchAlphas = [0.1, 0.3, 0.7, 0.9];
+const links = [[], [], [], [], [], [], [], []];
+//const linkBatchAlphas = Array.from(Array(99), (_, i) => (i + 1)/100)
+const linkBatchAlphas = [0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8]
 const linkBatches = links.length;
 const linkPool = [];
-
+var execute = true;
 let quadTree;
 let boundary;
-//const mouseTrail = [];
+const mouseTrail = [];
+
+let docStyle = getComputedStyle(document.documentElement);
+
+
 
 W = canvas.width;
 H = canvas.height;
 var offsetX, offsetY = W, H;
 
+//Default diagonal line length for a 2k monitor 
+const defScreen = Math.sqrt(2048**2 + 1024**2);
+//Actual screen diagonal (defined in setCanvasSize)
+var screenSize;
 
-canvas.addEventListener('mousemove', event => {
-    mouse.x = event.offsetX;
-    mouse.y = event.offsetY;
-    
-    // var Dot = new TrailDot(mouse.x, mouse.y);
-    // Dot.add();
-    // setTimeout(Dot.delete, Dot.trailDuration);
+$('header').on('mousemove', function(event){
+    //define mouse position (event.target was added in case the target object is not the header itself)
+    mouse.x = event.offsetX + event.target.offsetLeft;
+    mouse.y = event.offsetY + event.target.offsetTop;
+    //Add a trailing point at the current mouse position
+    var Dot = new TrailDot(mouse.x, mouse.y);
+    Dot.add();
+    //Delete the dot after a specific amount of time
+    setTimeout(Dot.delete, Dot.trailDuration);
 })
-canvas.addEventListener('mouseleave', () =>{
+document.querySelector('header').addEventListener('mouseleave', () =>{
     // when mouse leaves canvas set to undefined
     mouse.x = null;
 	mouse.y = null;
 })
 
-window.addEventListener('resize', setCanvasSize);
+window.addEventListener('resize', start);
 
 setTimeout(start, 42);
 function start() {
-    initParticle();
+    particles = [];
     setCanvasSize();
-    animate();
+    initParticle();
 }
-
+setTimeout(animate, 42)
 	
 function initParticle(){
     quadTree = new QuadTree();
+    
     for (let i = 0; i < number; i++) {
-        
-        size = Math.random() * (15 - 5) + 5 + canvas.height * canvas.width * 0.0000005;
-        if(Math.random()>0.2){
-
-            var pColour = `rgb(
-                ${(Math.random() * (220 - 102) + 102)},
-                0,
-                ${(Math.random() * (255 - 153) + 153 )})`;
-            // let colour = `rgb(
-            //     ${(Math.random() * 256)},
-            //     ${(Math.random() * 256)},
-            //     ${(Math.random() * 256)})`;
-        } else {
-            var pColour = `rgb(
-                ${(Math.random() * (255 - 240) + 240)},
-                ${(Math.random() * (150 - 120) + 120)},
-                ${(Math.random() * (60 - 20) + 20 )})`;
-        }
-        
+        size = (Math.random() * (15 - 5) + 5) * Math.sqrt(screenSize);
+        //set the color of the particle
+        let pColour = colours[Math.floor(Math.random() * 5)];
         particles.push(new Particle(canvas, size, pColour));
     }
+    console.log(particles.length)
 }
 // create animation loop
 function animate() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 	updateParticles();
     updateLines();
-    
-    //updateTrail();
-    //setTimeout(animate,12.5);
-    requestAnimationFrame(animate);
+    trail();
+    if(execute){ requestAnimationFrame(animate); }
 }
 
 function updateParticles() {
     quadTree.close();
-    
     
     for (const particle of particles) { 
        
@@ -139,7 +128,21 @@ function resetParticles() {
 function setCanvasSize () {
     H = canvas.height = canvas.offsetHeight;
     W = canvas.width = canvas.offsetWidth;
+    //Define screen size and adjust parameters that are depending on it
+    screenSize = Math.sqrt(canvas.width**2 + canvas.height**2) / defScreen;
+    //Connection distance between two links
+    linkDistance = 250 * screenSize;
+    linkDistance2 = (0.7 * linkDistance) ** 2;
+    //Mouse repell radius
+    repulseDistance = 105 * screenSize;
+    repulseDistance2 = repulseDistance ** 2;
+    //Amount of points
+    number = parseInt(150 * screenSize);
+    console.log(number, screenSize)
+    speed = 2.5 * screenSize; //speed of the particles
+
     resetParticles();
+    
 }
 
 class Link {
@@ -164,7 +167,6 @@ class Link {
 class Particle {
     constructor (canvas, r, pColour) {
         this.r = r;
-        this.speedScale = speed / 2;
         this.pColour = pColour;
         this.reset(canvas, r);
     }
@@ -178,6 +180,8 @@ class Particle {
         this.vy = Math.random() - 0.5;
         this.quad = undefined;
         this.explored = false;
+        this.speedScale = speed / 2;
+        
 
     }
 	  addPath(ctx) {
@@ -207,8 +211,6 @@ class Particle {
         let W, H;
         this.x += this.vx * this.speedScale;
         this.y += this.vy * this.speedScale;
-        
-        
 
         if (bounce) {
             W = ctx.canvas.width - r;
@@ -249,8 +251,8 @@ class Particle {
         var rf = ((1 - (dist / repulseDistance) ** 2)  * 100);
             rf = (rf < 0 ? 0 : rf > 50  ? 50 : rf) / dist;
         
-        var posX = this.x + dx * rf;
-        var posY = this.y + dy * rf;
+        var posX = this.x + dx * rf * 0.1;
+        var posY = this.y + dy * rf * 0.1;
 
         if (bounce) {
             if (posX - size > 0 && posX + size < canvas.width) this.x = posX;
@@ -400,48 +402,57 @@ class QuadTree {
 }    
  
 
+//Class for trailing dots
+class TrailDot {
+    constructor(x, y){
+        this.trailDuration = 100;
+        this.mouseTrailOffset = [7,7];
+        this.x = x + this.mouseTrailOffset[0];
+        this.y = y + this.mouseTrailOffset[1];
+    }
+    add(){
+        //Adds instance to general container for trailing dots
+        mouseTrail.push(this);
+    }
+    delete(){
+        //Delete own instance
+        mouseTrail.splice(0, 1);
+    }
+}
+//Draw lines between all trailin dots
+function trail(){
+    if (mouseTrail.length > 0){
+        for (let i = 0; i < mouseTrail.length; i++) {
+            const point = mouseTrail[i];
 
-// class TrailDot {
-//     constructor(x, y){
-//         this.trailDuration = 100;
-//         this.mouseTrailOffset = [7,7];
-//         this.x = x + this.mouseTrailOffset[0];
-//         this.y = y + this.mouseTrailOffset[1];
-//     }
-//     add(){
-//         mouseTrail.push(this);
-//     }
-//     delete(){
-//         mouseTrail.splice(0, 1);
-//     }
-// }
-
-
-
-
-
-
-// function trail(){
-//     if (mouseTrail.length > 0){
-//         for (let i = 0; i < mouseTrail.length; i++) {
-//             const point = mouseTrail[i];
-
-//             if (i == mouseTrail.length - 1){
-//                 var connection = (mouse.x == undefined) ? point : new TrailDot(mouse.x, mouse.y);
-//             } else {
-//                 var connection = mouseTrail[i+1];
-//             };
-//             let opacityValue = 0.2 + 0.8 * (i / (mouseTrail.length-1));
-//             ctx.strokeStyle='rgba(255,255,255,' + opacityValue +')';
-//             ctx.beginPath();
-//             ctx.lineWidth = 0.5 +  2.5 * (i / (mouseTrail.length-1));
-//             ctx.moveTo(Math.floor(point.x), Math.floor(point.y));
-//             ctx.lineTo(Math.floor(connection.x), Math.floor(connection.y));
-//             ctx.stroke();
+            //Select connection destination
+            if (i == mouseTrail.length - 1){
+                var connection = (mouse.x == undefined) ? point : new TrailDot(mouse.x, mouse.y);
+            } else {
+                var connection = mouseTrail[i+1];
+            };
+            let opacityValue = 0.2 + 0.8 * (i / (mouseTrail.length-1));
+            ctx.strokeStyle='rgba(255,255,255,' + opacityValue +')';
+            ctx.beginPath();
+            ctx.lineWidth = 0.5 +  2.5 * (i / (mouseTrail.length-1));
+            ctx.moveTo(Math.floor(point.x), Math.floor(point.y));
+            ctx.lineTo(Math.floor(connection.x), Math.floor(connection.y));
+            ctx.stroke();
             
-//         }
-//     }
-// }
+        }
+    }
+}
+//Detect whether canvas is visible and disable animation if not
+$(document).scroll(function(){
+    if (window.scrollY > canvas.height){
+        execute = false;
+    } else if (!execute){
+        execute = true;
+        animate();
+    } else{
+        execute = true;
+    }
+})
 
 
 

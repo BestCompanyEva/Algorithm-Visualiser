@@ -15,13 +15,30 @@
 
 :root {
     --title_top: 23%;
-    --secondary_color: #FE842B;
+    /*
+    --gelbwaswirmochten: #f6e898;
+    --primary_color: #91e5f6ff;
+    --secondary_color: #f6e898;
+    --tertiary_color: #315272ff;
+    --quartery_color: #377dabff;
+    --quintery_color: #3ba9dcff;*/
     scroll-behavior: smooth;
+    /*#0d111a*/
+    /* CSS HEX */
+    --dark-slate-gray: #3f5e5aff;
+    --spring-green: #20fc8fff;
+    --cerise: #e02d5dff;
+    --medium-slate-blue: #6665ddff;
+    --xiketic: #020122ff;
   }
 body{
     scrollbar-width: none;
     overflow-x: hidden;
     -ms-overflow-style: none;
+    /*background-color: rgb(41, 41, 41);*/
+    /*background-image: linear-gradient(to bottom, black, #131825);*/
+    background-image: linear-gradient(to bottom, #000000, var(--xiketic));
+    font-family: "Roboto", sans-serif;
 }
 #canvas1 {
     position: relative;
@@ -29,18 +46,18 @@ body{
     left: 0;
     width: 100%;
     height: 100%;
-    background: radial-gradient(#2c192c, #000000);
+    background: radial-gradient(var(--medium-slate-blue), #000000);
     z-index: -1;
-    pointer-events: all;
-
 }
 header{
-    height: 100%;
+    height: 100vh;
     width: 100%;
+    position: relative;
+    box-shadow: 0px 5px 17px -4px var(--cerise);
 }
 header .container{
     width: 100%;
-    background-color: rgba(10, 10, 10, 0.8);
+    background-color: rgba(13, 17, 26, 0.8);
     position: absolute;
     text-align: center;
     padding-left: 10%;
@@ -48,13 +65,13 @@ header .container{
 header .container a{
     text-decoration: none;
     color: rgb(184, 182, 182);
-    font-size: 1.5rem;
+    font-size: 16px;
     text-shadow: inset 10px 10px black;
     /*font-family: 'Agency FB';*/
     font-family: 'Roboto', sans-serif;
     font-weight: 500;
     letter-spacing: 0.05rem;
-    padding: 30px 20px;
+    padding: 15px 20px;
     text-align: center;
     float: left;
     transition: all 0.3s ease;
@@ -83,6 +100,7 @@ header h1 {
     animation-delay: 0.2s;
     animation-iteration-count: 1;
     animation-fill-mode: both;
+    pointer-events: none;
 }
 
 header h1 p{
@@ -97,19 +115,13 @@ header h1 p{
     }
 }
 
-.orange{
-    color: #FE842B;
-}
-
-.purple{
-    color: purple;
-}
 @keyframes drawText {
     from{opacity: 0; top: calc(var(--title_top) + 3%);}
     to{opacity: 1; top: var(--title_top);}
 }
 .article{
-    font-size: 2em;
+    font-size: 1.5em;
+    color: #edf0f1;
     width: 1050px;
     height: auto;
     left: 50%;
@@ -120,13 +132,13 @@ header h1 p{
     padding-bottom: 0px;
     padding-left: 20px;
     padding-right: 20px;
-    border-top: 1px solid purple;
+    /*border-top: 1px solid var(--primary_color);*/
   }
 .article:last-of-type{
     padding-bottom: 50px;
 }
 .article h1{
-    color: purple;
+    color: var(--primary_color);
     padding-bottom: 40px;
 }
 .algo{
@@ -145,8 +157,11 @@ header h1 p{
     width: 250px;
     border-radius: 1.5rem;
     overflow: hidden;
-    border: 1.15px solid purple;
+    /*border: 1.15px solid var(--primary_color);*/
     user-select: all;
+    box-shadow: 0px 0px 0px 2px var(--spring-green);
+    color: var(--spring-green);
+
 }
 
 .algo-image-container{
@@ -172,7 +187,7 @@ header h1 p{
 .algo-container-content{
     margin: 0px;
     margin-top: 250px;
-    background-color: white;
+    background-color: var(--xiketic);
     background-clip: border-box;
     padding: 25px;
     width: 100%;
@@ -190,7 +205,7 @@ header h1 p{
 
 .align-right{
     text-align: right;
-    border-top: 1px solid var(--secondary_color);
+    /*border-top: 1px solid var(--secondary_color);*/
 }
 
 .align-right .float{
@@ -198,9 +213,6 @@ header h1 p{
     margin: 20px;
 }
 
-.align-right h1 {
-    color: var(--secondary_color);
-}
 
 .hover-shadow{
     transition: all 0.15s ease;
@@ -216,8 +228,8 @@ nav{
     top: 0px;
     width: 200px;
     height: 100%;
-    background-color: purple;
-    color: white;
+    /*background-color: var(--primary_color);*/
+    color: #edf0f1;
     margin: 0px;
     text-align: left;
     z-index: 10;
@@ -226,7 +238,7 @@ nav{
 }
 
 #navContents{
-    background-color: rgb(158, 27, 158);
+    /*background-color: var(--tertiary_color);*/
     box-shadow: inset 5px 5px 13px -10px black, inset -5px -5px 10px -10px black;
     margin-left: 10px;
     margin-right: 4px;
@@ -239,9 +251,6 @@ nav p{
     font-size: 17px;
 }
 
-nav p:hover{
-    background-color: orange;
-}
 
 nav h1{
     margin: 50px 0 10px 15px;
@@ -254,17 +263,19 @@ nav h1{
 #navBtn{
     position: fixed;
     z-index: 8;
-    background-color: purple;
+    /*background-color: var(--primary_color);*/
     width: 50px;
     height: 50px;
     left: 2%;
     top: 15%;
     border-radius: 7px;
     transform: 2s;
+    transition: .15s;
 }
 #navBtn:hover{
-    background-color: rgb(163, 51, 163);
+    /*background-color: var(--quartery_color);*/
     box-shadow: inset 0px 0px 15px -5px rgba(0,0,0,0.5);
+    
 }
 #navBtn div{
     background-image: url("../images/ShowNavBar.svg");
@@ -280,7 +291,7 @@ nav h1{
 
 footer{
     background-color: #303030;
-    color: white;
+    color: #edf0f1;
     min-width: 10%;
     font-size: 4em;
     text-align: center;

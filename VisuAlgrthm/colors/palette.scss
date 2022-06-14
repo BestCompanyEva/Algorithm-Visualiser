@@ -1,0 +1,47 @@
+/* 13 - https://coolors.co/2b303a-92dce5-eee5e9-7c7c7c-af125a */
+
+/* CSS HEX */
+--gunmetal: #2b303aff;
+--middle-blue: #92dce5ff;
+--lavender-blush: #eee5e9ff;
+--gray-web: #7c7c7cff;
+--jazzberry-jam: #af125aff;
+
+/* CSS HSL */
+--gunmetal: hsla(220, 15%, 20%, 1);
+--middle-blue: hsla(187, 61%, 74%, 1);
+--lavender-blush: hsla(333, 21%, 92%, 1);
+--gray-web: hsla(0, 0%, 49%, 1);
+--jazzberry-jam: hsla(332, 81%, 38%, 1);
+
+/* SCSS HEX */
+$gunmetal: #2b303aff;
+$middle-blue: #92dce5ff;
+$lavender-blush: #eee5e9ff;
+$gray-web: #7c7c7cff;
+$jazzberry-jam: #af125aff;
+
+/* SCSS HSL */
+$gunmetal: hsla(220, 15%, 20%, 1);
+$middle-blue: hsla(187, 61%, 74%, 1);
+$lavender-blush: hsla(333, 21%, 92%, 1);
+$gray-web: hsla(0, 0%, 49%, 1);
+$jazzberry-jam: hsla(332, 81%, 38%, 1);
+
+/* SCSS RGB */
+$gunmetal: rgba(43, 48, 58, 1);
+$middle-blue: rgba(146, 220, 229, 1);
+$lavender-blush: rgba(238, 229, 233, 1);
+$gray-web: rgba(124, 124, 124, 1);
+$jazzberry-jam: rgba(175, 18, 90, 1);
+
+/* SCSS Gradient */
+$gradient-top: linear-gradient(0deg, #2b303aff, #92dce5ff, #eee5e9ff, #7c7c7cff, #af125aff);
+$gradient-right: linear-gradient(90deg, #2b303aff, #92dce5ff, #eee5e9ff, #7c7c7cff, #af125aff);
+$gradient-bottom: linear-gradient(180deg, #2b303aff, #92dce5ff, #eee5e9ff, #7c7c7cff, #af125aff);
+$gradient-left: linear-gradient(270deg, #2b303aff, #92dce5ff, #eee5e9ff, #7c7c7cff, #af125aff);
+$gradient-top-right: linear-gradient(45deg, #2b303aff, #92dce5ff, #eee5e9ff, #7c7c7cff, #af125aff);
+$gradient-bottom-right: linear-gradient(135deg, #2b303aff, #92dce5ff, #eee5e9ff, #7c7c7cff, #af125aff);
+$gradient-top-left: linear-gradient(225deg, #2b303aff, #92dce5ff, #eee5e9ff, #7c7c7cff, #af125aff);
+$gradient-bottom-left: linear-gradient(315deg, #2b303aff, #92dce5ff, #eee5e9ff, #7c7c7cff, #af125aff);
+$gradient-radial: radial-gradient(#2b303aff, #92dce5ff, #eee5e9ff, #7c7c7cff, #af125aff);
