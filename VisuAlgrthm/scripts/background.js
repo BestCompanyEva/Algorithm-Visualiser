@@ -134,7 +134,7 @@ function setCanvasSize () {
     linkDistance = 250 * screenSize;
     linkDistance2 = (0.7 * linkDistance) ** 2;
     //Mouse repell radius
-    repulseDistance = 90 * screenSize;
+    repulseDistance = 105 * screenSize;
     repulseDistance2 = repulseDistance ** 2;
     //Amount of points
     number = parseInt(150 * screenSize);

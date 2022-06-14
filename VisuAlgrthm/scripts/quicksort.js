@@ -17,8 +17,8 @@ canvas.getContext('2d').scale(2,2);
 
 const barWidth = 0.6;
 const textWidth = 1.1;
-const offetTop = 100;
-const offsetBot = 50;
+const offetTop = 40;
+const offsetBot = 40;
 const offsetLeft = 50;
 
 var dragging = false;
@@ -79,7 +79,7 @@ $(function(){
         await quicksort(arr, 0, arr.length - 1);
         arr.forEach(element => {
             element.stable = false;
-            element.color = "#f6e898";
+            element.color = "#20fc8f";
         });
         drawEverything();
         init(length=arr.length, undefined, false);
@@ -99,13 +99,13 @@ class Bar{
         this.width = 0;
         this.positionX = 0;
         this.positionY = cheight - offsetBot;
-        this.color = '#377dabff';
+        this.color = '#e02d5d';
         this.stable = false;
         this
     }
     draw(){
         ctx.beginPath();
-        ctx.fillStyle = (this.stable && this.color != "blue") ? "#f6e898" : this.color;
+        ctx.fillStyle = (this.stable && this.color != "#6665dd") ? "#20fc8f" : this.color;
         ctx.rect(Math.round(this.positionX - this.width / 2) , Math.round(this.positionY - this.height), Math.round(this.width), Math.round(this.height));
         ctx.fill();
     }
@@ -139,29 +139,29 @@ class Bar{
     }
     pivot(){
         for (const box of arr) {
-            if(box.color == "blue"){
-                box.color = "#377dabff"
+            if(box.color == "#6665dd"){
+                box.color = "#e02d5d"
             }
         }
-        this.color = "blue";
+        this.color = "#6665dd";
         drawEverything();
     }
     comparing1(){
         for (const box of arr) {
-            if(box.color == "#91e5f6ff"){
-                box.color = "#377dabff"
+            if(box.color == "#B7E02D"){
+                box.color = "#e02d5d"
             }
         }
-        this.color = "#91e5f6ff";
+        this.color = "#B7E02D";
         drawEverything();
     }
     comparing2(){
         for (const box of arr) {
-            if(box.color == "green"){
-                box.color = "#377dabff"
+            if(box.color == "#2DE0B0"){
+                box.color = "#e02d5d"
             }
         }
-        this.color = "green";
+        this.color = "#2DE0B0";
         drawEverything();
     }
 }

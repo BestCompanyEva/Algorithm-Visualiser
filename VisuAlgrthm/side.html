@@ -14,17 +14,14 @@
   
   <nav class="navContainer">
     <ul class="topnav">
-      <li><a href="#">Algo 1</a></li>
-      <li><a href="#">Algo 2</a></li>
-      <li><a href="#">Algo 3</a></li>
-      <li><a href="#">Algo 4</a></li>
+      <li><a href="#">Bubble Sort</a></li>
+      <li><a href="#">Merge Sort</a></li>
+      <li><a href="#">Quick Sort</a></li>
+      <li><a href="#">Selection Sort</a></li>
     </ul>
 
   </nav>
-  <div class="controlButtons">
-    <input type="button" value="sort" id="sort">
-    <input type="button" value="random" id="randomize" class="invisible">
-    <a href="side.html?a=qs">Click here</a>
+  
     
     
   </div>
@@ -40,17 +37,24 @@
       <input type="range" min="1" max="10000" value="5000" class="slider" id="tempoSlider" step="1">
   </div>
   </div>
+  <div class="controlButtons">
+    <input type="button" value="sort" id="sort">
+    <input type="button" value="random" id="randomize" class="invisible">
+    <a href="side.html?a=qs">Click here</a>
+    
+    
+  </div>
   <div id="centerContainer">
       <canvas id="vis-alg" height= '500px' width='900px'></canvas><br>
       <p id="description"></p>
-      <div class="colorIcons">
-        <p>
-          <img src="images/blue.PNG" alt="blue" heigth="15px" width="15px" class="blueIcon">   Pivot</img>
-          <img src="images/mintGreen.PNG" alt="green" heigth="15px" width="15px" class="greenIcon">   Comparison value</img>
-          <img src="images/yellow.PNG" alt="green" heigth="15px" width="15px" class="yellowIcon">   Final position</img>
-        </p>
-        &#9658
+      <div id="colorIcons">
+      
+        <img src="images/pivot.PNG" alt="purple" heigth="15px" width="15px" class="pivotIcon">   Pivot</img>
+        <img src="images/comparisonGreen.PNG" alt="lightGreen" heigth="15px" width="15px" class="comparisonIcon">   Comparison Value</img>
+        <img src="images/mintGreen.PNG" alt="green" heigth="15px" width="15px" class="finalPosIcon">   Final Position</img>
+
       </div>
+      
   </div>
   <div id="showValue" class="invisible"></div>
 

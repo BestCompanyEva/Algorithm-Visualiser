@@ -39,6 +39,7 @@ const qs = new AlgorithmData(
         document.getElementById('tempoSliderValue').innerHTML = convertValue(tempoSlider.attr('value'));
     }
 )
+
 //Algorithm container
 var algorithms = {
     'qs' : qs
